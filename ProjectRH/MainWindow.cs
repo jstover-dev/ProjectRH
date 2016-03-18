@@ -19,6 +19,7 @@ namespace ProjectRH
         public MainWindow() {
             InitializeComponent();
             openFileDialog = createFileDialog();
+
         }
 
         private OpenFileDialog createFileDialog() {
@@ -37,10 +38,14 @@ namespace ProjectRH
                 Properties.Settings.Default.LastFile = openFileDialog.FileName;
                 Properties.Settings.Default.Save();
 
+                labelName.Text = Path.GetFileNameWithoutExtension(openFileDialog.FileName);
+
                 nvInspector = new NVInspector(openFileDialog.FileName);
-                Console.WriteLine("Read {0} bytes", nvInspector.Bytes.Length);
+                textBoxHex.Lines = nvInspector.GetLines(32);
+                labelSize.Text = nvInspector.Bytes.Length.ToString();
             }
         }
+
 
 
 
