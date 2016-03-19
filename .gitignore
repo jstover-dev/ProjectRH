@@ -1,7 +1,7 @@
 #windows
 Thumbs.db
 
-#Visual Studio
+# VS / Mono / .NET
 *.user
 *.aps
 *.pch
@@ -14,6 +14,7 @@ Thumbs.db
 *.cache
 *.ilk
 *.log
+*.userprefs
 [Bb]in
 [Dd]ebug*/
 *.sbr
