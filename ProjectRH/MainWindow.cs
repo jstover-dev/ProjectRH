@@ -16,12 +16,20 @@ namespace ProjectRH
         private OpenFileDialog openFileDialog;
         private NVInspector nvInspector;
 
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ProjectRH.MainWindow"/> class.
+		/// </summary>
         public MainWindow() {
             InitializeComponent();
             openFileDialog = createFileDialog();
-
         }
 
+
+		/// <summary>
+		/// Creates the open file dialog for the input NVRAM dump
+		/// </summary>
+		/// <returns>OpenFileDialog with NVRAM filter.</returns>
         private OpenFileDialog createFileDialog() {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = @"NVRAM Images (*.nv;*.nvram;*.dat)|*.nv;*.nvram;*.dat|All Files (*.*)|*.*";
@@ -31,18 +39,23 @@ namespace ProjectRH
             return ofd;
         }
 
+		/// <summary>
+		/// Input file 'Browse' button handler
+		/// </summary>
         private void pictureBox1_Click(object sender, EventArgs e) {
+
             DialogResult r = openFileDialog.ShowDialog();
             if (r == DialogResult.OK) {
-                textBoxCurrentFile.Text = openFileDialog.FileName;
-                Properties.Settings.Default.LastFile = openFileDialog.FileName;
-                Properties.Settings.Default.Save();
 
-                labelName.Text = Path.GetFileNameWithoutExtension(openFileDialog.FileName);
+				Properties.Settings.Default.LastFile = openFileDialog.FileName;
+				Properties.Settings.Default.Save();
+
+                textBoxCurrentFile.Text = openFileDialog.FileName;
 
                 nvInspector = new NVInspector(openFileDialog.FileName);
-                textBoxHex.Lines = nvInspector.GetLines(32);
-                labelSize.Text = nvInspector.Bytes.Length.ToString();
+                labelSizeValue.Text = nvInspector.Bytes.Length.ToString();
+				labelNameValue.Text = Path.GetFileNameWithoutExtension(openFileDialog.FileName);
+				labelFormatValue.Text = "Unknown";
             }
         }
 
