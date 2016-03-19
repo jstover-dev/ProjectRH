@@ -21,232 +21,234 @@ namespace ProjectRH
             this.textBoxCurrentFile = new System.Windows.Forms.TextBox();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageDetail = new System.Windows.Forms.TabPage();
-            this.tabPageHex = new System.Windows.Forms.TabPage();
-            this.textBoxHex = new System.Windows.Forms.TextBox();
-            this.labelNameValue = new System.Windows.Forms.Label();
-            this.panelInfoValues = new System.Windows.Forms.Panel();
-            this.labelSizeValue = new System.Windows.Forms.Label();
-            this.labelFormatValue = new System.Windows.Forms.Label();
             this.panelInfo = new System.Windows.Forms.Panel();
+            this.panelInfoValues = new System.Windows.Forms.Panel();
+            this.labelFormatValue = new System.Windows.Forms.Label();
+            this.labelSizeValue = new System.Windows.Forms.Label();
+            this.labelNameValue = new System.Windows.Forms.Label();
             this.panelInfoLabels = new System.Windows.Forms.Panel();
             this.labelFormat = new System.Windows.Forms.Label();
             this.labelSize = new System.Windows.Forms.Label();
             this.labelName = new System.Windows.Forms.Label();
+            this.tabPageHex = new System.Windows.Forms.TabPage();
+            this.textBoxHex = new System.Windows.Forms.TextBox();
             this.groupBoxFileInput.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBrowseIcon)).BeginInit();
             this.tabControl.SuspendLayout();
             this.tabPageDetail.SuspendLayout();
-            this.tabPageHex.SuspendLayout();
-            this.panelInfoValues.SuspendLayout();
             this.panelInfo.SuspendLayout();
+            this.panelInfoValues.SuspendLayout();
             this.panelInfoLabels.SuspendLayout();
+            this.tabPageHex.SuspendLayout();
+            this.SuspendLayout();
             // 
             // groupBoxFileInput
             // 
+            this.groupBoxFileInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBoxFileInput.Controls.Add(this.pictureBoxBrowseIcon);
             this.groupBoxFileInput.Controls.Add(this.textBoxCurrentFile);
-            this.groupBoxFileInput.Size = new System.Drawing.Size(325, 53);
-            this.groupBoxFileInput.Name = "groupBoxFileInput";
             this.groupBoxFileInput.Location = new System.Drawing.Point(15, 13);
-            this.groupBoxFileInput.Text = "NVRAM Dump";
-            this.groupBoxFileInput.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right);
-            this.groupBoxFileInput.TabStop = false;
+            this.groupBoxFileInput.Name = "groupBoxFileInput";
+            this.groupBoxFileInput.Size = new System.Drawing.Size(755, 53);
             this.groupBoxFileInput.TabIndex = 0;
+            this.groupBoxFileInput.TabStop = false;
+            this.groupBoxFileInput.Text = "NVRAM Dump";
             // 
             // pictureBoxBrowseIcon
             // 
-            this.pictureBoxBrowseIcon.Name = "pictureBoxBrowseIcon";
-            this.pictureBoxBrowseIcon.TabStop = false;
+            this.pictureBoxBrowseIcon.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBoxBrowseIcon.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBoxBrowseIcon.Location = new System.Drawing.Point(294, 20);
-            this.pictureBoxBrowseIcon.Image = Properties.Resources.folder_explore;
-            this.pictureBoxBrowseIcon.TabIndex = 1;
-            this.pictureBoxBrowseIcon.Anchor = (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right);
+            this.pictureBoxBrowseIcon.Image = global::ProjectRH.Properties.Resources.folder_explore;
+            this.pictureBoxBrowseIcon.Location = new System.Drawing.Point(724, 20);
+            this.pictureBoxBrowseIcon.Name = "pictureBoxBrowseIcon";
             this.pictureBoxBrowseIcon.Size = new System.Drawing.Size(24, 24);
             this.pictureBoxBrowseIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxBrowseIcon.TabIndex = 1;
+            this.pictureBoxBrowseIcon.TabStop = false;
             this.pictureBoxBrowseIcon.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // textBoxCurrentFile
             // 
-            this.textBoxCurrentFile.Name = "textBoxCurrentFile";
-            this.textBoxCurrentFile.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.textBoxCurrentFile.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.textBoxCurrentFile.Location = new System.Drawing.Point(8, 20);
-            this.textBoxCurrentFile.TabIndex = 0;
-            this.textBoxCurrentFile.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right);
-            this.textBoxCurrentFile.Size = new System.Drawing.Size(278, 24);
+            this.textBoxCurrentFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxCurrentFile.BackColor = System.Drawing.SystemColors.Window;
+            this.textBoxCurrentFile.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.textBoxCurrentFile.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.textBoxCurrentFile.Location = new System.Drawing.Point(8, 20);
+            this.textBoxCurrentFile.Name = "textBoxCurrentFile";
+            this.textBoxCurrentFile.Size = new System.Drawing.Size(708, 20);
+            this.textBoxCurrentFile.TabIndex = 0;
             // 
             // tabControl
             // 
-            this.tabControl.Name = "tabControl";
-            this.tabControl.SelectedIndex = 0;
-            this.tabControl.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right);
-            this.tabControl.Location = new System.Drawing.Point(15, 72);
-            this.tabControl.TabIndex = 2;
+            this.tabControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl.Controls.Add(this.tabPageDetail);
             this.tabControl.Controls.Add(this.tabPageHex);
-            this.tabControl.Size = new System.Drawing.Size(325, 306);
             this.tabControl.ItemSize = new System.Drawing.Size(54, 19);
+            this.tabControl.Location = new System.Drawing.Point(15, 72);
+            this.tabControl.Name = "tabControl";
+            this.tabControl.SelectedIndex = 0;
+            this.tabControl.Size = new System.Drawing.Size(755, 306);
+            this.tabControl.TabIndex = 2;
             // 
             // tabPageDetail
             // 
-            this.tabPageDetail.Name = "tabPageDetail";
-            this.tabPageDetail.MaximumSize = new System.Drawing.Size(0, 0);
-            this.tabPageDetail.Location = new System.Drawing.Point(4, 20);
-            this.tabPageDetail.TabIndex = 0;
-            this.tabPageDetail.Controls.Add(this.panelInfo);
-            this.tabPageDetail.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageDetail.Size = new System.Drawing.Size(318, 282);
             this.tabPageDetail.BackColor = System.Drawing.Color.Transparent;
-            //this.tabPageDetail.ImageKey = null;
+            this.tabPageDetail.Controls.Add(this.panelInfo);
+            this.tabPageDetail.Location = new System.Drawing.Point(4, 23);
+            this.tabPageDetail.Name = "tabPageDetail";
+            this.tabPageDetail.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageDetail.Size = new System.Drawing.Size(747, 279);
+            this.tabPageDetail.TabIndex = 0;
             this.tabPageDetail.Text = "Detail";
+            // 
+            // panelInfo
+            // 
+            this.panelInfo.BackColor = System.Drawing.Color.Transparent;
+            this.panelInfo.Controls.Add(this.panelInfoValues);
+            this.panelInfo.Controls.Add(this.panelInfoLabels);
+            this.panelInfo.Location = new System.Drawing.Point(7, 6);
+            this.panelInfo.Name = "panelInfo";
+            this.panelInfo.Size = new System.Drawing.Size(217, 71);
+            this.panelInfo.TabIndex = 2;
+            // 
+            // panelInfoValues
+            // 
+            this.panelInfoValues.BackColor = System.Drawing.Color.Transparent;
+            this.panelInfoValues.Controls.Add(this.labelFormatValue);
+            this.panelInfoValues.Controls.Add(this.labelSizeValue);
+            this.panelInfoValues.Controls.Add(this.labelNameValue);
+            this.panelInfoValues.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelInfoValues.Location = new System.Drawing.Point(70, 0);
+            this.panelInfoValues.Name = "panelInfoValues";
+            this.panelInfoValues.Size = new System.Drawing.Size(147, 71);
+            this.panelInfoValues.TabIndex = 1;
+            // 
+            // labelFormatValue
+            // 
+            this.labelFormatValue.BackColor = System.Drawing.Color.Transparent;
+            this.labelFormatValue.Dock = System.Windows.Forms.DockStyle.Top;
+            this.labelFormatValue.Location = new System.Drawing.Point(0, 46);
+            this.labelFormatValue.Name = "labelFormatValue";
+            this.labelFormatValue.Size = new System.Drawing.Size(147, 23);
+            this.labelFormatValue.TabIndex = 2;
+            this.labelFormatValue.Text = "labelFormatValue";
+            this.labelFormatValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // labelSizeValue
+            // 
+            this.labelSizeValue.BackColor = System.Drawing.Color.Transparent;
+            this.labelSizeValue.Dock = System.Windows.Forms.DockStyle.Top;
+            this.labelSizeValue.Location = new System.Drawing.Point(0, 23);
+            this.labelSizeValue.Name = "labelSizeValue";
+            this.labelSizeValue.Size = new System.Drawing.Size(147, 23);
+            this.labelSizeValue.TabIndex = 1;
+            this.labelSizeValue.Text = "labelSizeValue";
+            this.labelSizeValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // labelNameValue
+            // 
+            this.labelNameValue.BackColor = System.Drawing.Color.Transparent;
+            this.labelNameValue.Dock = System.Windows.Forms.DockStyle.Top;
+            this.labelNameValue.Location = new System.Drawing.Point(0, 0);
+            this.labelNameValue.Name = "labelNameValue";
+            this.labelNameValue.Size = new System.Drawing.Size(147, 23);
+            this.labelNameValue.TabIndex = 0;
+            this.labelNameValue.Text = "labelNameValue";
+            this.labelNameValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // panelInfoLabels
+            // 
+            this.panelInfoLabels.BackColor = System.Drawing.Color.Transparent;
+            this.panelInfoLabels.Controls.Add(this.labelFormat);
+            this.panelInfoLabels.Controls.Add(this.labelSize);
+            this.panelInfoLabels.Controls.Add(this.labelName);
+            this.panelInfoLabels.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panelInfoLabels.Location = new System.Drawing.Point(0, 0);
+            this.panelInfoLabels.Name = "panelInfoLabels";
+            this.panelInfoLabels.Padding = new System.Windows.Forms.Padding(0, 0, 10, 0);
+            this.panelInfoLabels.Size = new System.Drawing.Size(70, 71);
+            this.panelInfoLabels.TabIndex = 3;
+            // 
+            // labelFormat
+            // 
+            this.labelFormat.BackColor = System.Drawing.Color.Transparent;
+            this.labelFormat.Dock = System.Windows.Forms.DockStyle.Top;
+            this.labelFormat.Location = new System.Drawing.Point(0, 46);
+            this.labelFormat.Name = "labelFormat";
+            this.labelFormat.Size = new System.Drawing.Size(60, 23);
+            this.labelFormat.TabIndex = 2;
+            this.labelFormat.Text = "Format:";
+            this.labelFormat.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // labelSize
+            // 
+            this.labelSize.BackColor = System.Drawing.Color.Transparent;
+            this.labelSize.Dock = System.Windows.Forms.DockStyle.Top;
+            this.labelSize.Location = new System.Drawing.Point(0, 23);
+            this.labelSize.Name = "labelSize";
+            this.labelSize.Size = new System.Drawing.Size(60, 23);
+            this.labelSize.TabIndex = 1;
+            this.labelSize.Text = "Size:";
+            this.labelSize.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // labelName
+            // 
+            this.labelName.BackColor = System.Drawing.Color.Transparent;
+            this.labelName.Dock = System.Windows.Forms.DockStyle.Top;
+            this.labelName.Location = new System.Drawing.Point(0, 0);
+            this.labelName.Name = "labelName";
+            this.labelName.Size = new System.Drawing.Size(60, 23);
+            this.labelName.TabIndex = 0;
+            this.labelName.Text = "Name:";
+            this.labelName.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // tabPageHex
             // 
-            this.tabPageHex.Name = "tabPageHex";
-            this.tabPageHex.MaximumSize = new System.Drawing.Size(0, 0);
-            this.tabPageHex.Location = new System.Drawing.Point(4, 20);
-            this.tabPageHex.TabIndex = 1;
             this.tabPageHex.Controls.Add(this.textBoxHex);
+            this.tabPageHex.Location = new System.Drawing.Point(4, 23);
+            this.tabPageHex.Name = "tabPageHex";
             this.tabPageHex.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageHex.Size = new System.Drawing.Size(318, 282);
-            //this.tabPageHex.ImageKey = null;
+            this.tabPageHex.Size = new System.Drawing.Size(747, 279);
+            this.tabPageHex.TabIndex = 1;
             this.tabPageHex.Text = "Hex";
             this.tabPageHex.UseVisualStyleBackColor = true;
             // 
             // textBoxHex
             // 
-            this.textBoxHex.Name = "textBoxHex";
-            this.textBoxHex.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.textBoxHex.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBoxHex.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.textBoxHex.Location = new System.Drawing.Point(3, 3);
-            this.textBoxHex.TabIndex = 2;
             this.textBoxHex.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxHex.Size = new System.Drawing.Size(312, 25);
-            this.textBoxHex.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBoxHex.ReadOnly = true;
+            this.textBoxHex.Font = new System.Drawing.Font("Courier New", 9F);
+            this.textBoxHex.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.textBoxHex.Location = new System.Drawing.Point(3, 3);
             this.textBoxHex.Multiline = true;
-            // 
-            // labelNameValue
-            // 
-            this.labelNameValue.Name = "labelNameValue";
-            this.labelNameValue.Image = null;
-            this.labelNameValue.TabIndex = 0;
-            this.labelNameValue.Dock = System.Windows.Forms.DockStyle.Top;
-            this.labelNameValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.labelNameValue.Size = new System.Drawing.Size(145, 23);
-            this.labelNameValue.BackColor = System.Drawing.Color.Transparent;
-            this.labelNameValue.Text = "labelNameValue";
-            // 
-            // panelInfoValues
-            // 
-            this.panelInfoValues.Name = "panelInfoValues";
-            this.panelInfoValues.Location = new System.Drawing.Point(70, 0);
-            this.panelInfoValues.TabIndex = 1;
-            this.panelInfoValues.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelInfoValues.Controls.Add(this.labelFormatValue);
-            this.panelInfoValues.Controls.Add(this.labelSizeValue);
-            this.panelInfoValues.Controls.Add(this.labelNameValue);
-            this.panelInfoValues.Size = new System.Drawing.Size(145, 69);
-            this.panelInfoValues.BackColor = System.Drawing.Color.Transparent;
-            // 
-            // labelSizeValue
-            // 
-            this.labelSizeValue.Name = "labelSizeValue";
-            this.labelSizeValue.Location = new System.Drawing.Point(0, 23);
-            this.labelSizeValue.Image = null;
-            this.labelSizeValue.TabIndex = 1;
-            this.labelSizeValue.Dock = System.Windows.Forms.DockStyle.Top;
-            this.labelSizeValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.labelSizeValue.Size = new System.Drawing.Size(145, 23);
-            this.labelSizeValue.BackColor = System.Drawing.Color.Transparent;
-            this.labelSizeValue.Text = "labelSizeValue";
-            // 
-            // labelFormatValue
-            // 
-            this.labelFormatValue.Name = "labelFormatValue";
-            this.labelFormatValue.Location = new System.Drawing.Point(0, 46);
-            this.labelFormatValue.Image = null;
-            this.labelFormatValue.TabIndex = 2;
-            this.labelFormatValue.Dock = System.Windows.Forms.DockStyle.Top;
-            this.labelFormatValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.labelFormatValue.Size = new System.Drawing.Size(145, 23);
-            this.labelFormatValue.BackColor = System.Drawing.Color.Transparent;
-            this.labelFormatValue.Text = "labelFormatValue";
-            // 
-            // panelInfo
-            // 
-            this.panelInfo.Name = "panelInfo";
-            this.panelInfo.Location = new System.Drawing.Point(7, 6);
-            this.panelInfo.TabIndex = 2;
-            this.panelInfo.Controls.Add(this.panelInfoValues);
-            this.panelInfo.Controls.Add(this.panelInfoLabels);
-            this.panelInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelInfo.Size = new System.Drawing.Size(217, 71);
-            this.panelInfo.BackColor = System.Drawing.Color.Transparent;
-            // 
-            // panelInfoLabels
-            // 
-            this.panelInfoLabels.Name = "panelInfoLabels";
-            this.panelInfoLabels.TabIndex = 3;
-            this.panelInfoLabels.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panelInfoLabels.Controls.Add(this.labelFormat);
-            this.panelInfoLabels.Controls.Add(this.labelSize);
-            this.panelInfoLabels.Controls.Add(this.labelName);
-            this.panelInfoLabels.Size = new System.Drawing.Size(70, 69);
-            this.panelInfoLabels.BackColor = System.Drawing.Color.Transparent;
-			this.panelInfoLabels.Padding = new System.Windows.Forms.Padding(0,0,10,0);
-            // 
-            // labelFormat
-            // 
-            this.labelFormat.Name = "labelFormat";
-            this.labelFormat.Location = new System.Drawing.Point(0, 46);
-            this.labelFormat.Image = null;
-            this.labelFormat.TabIndex = 2;
-            this.labelFormat.Dock = System.Windows.Forms.DockStyle.Top;
-            this.labelFormat.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.labelFormat.Size = new System.Drawing.Size(70, 23);
-            this.labelFormat.BackColor = System.Drawing.Color.Transparent;
-            this.labelFormat.Text = "Format:";
-            // 
-            // labelSize
-            // 
-            this.labelSize.Name = "labelSize";
-            this.labelSize.Location = new System.Drawing.Point(0, 23);
-            this.labelSize.Image = null;
-            this.labelSize.TabIndex = 1;
-            this.labelSize.Dock = System.Windows.Forms.DockStyle.Top;
-            this.labelSize.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.labelSize.Size = new System.Drawing.Size(70, 23);
-            this.labelSize.BackColor = System.Drawing.Color.Transparent;
-            this.labelSize.Text = "Size:";
-            // 
-            // labelName
-            // 
-            this.labelName.Name = "labelName";
-            this.labelName.Image = null;
-            this.labelName.TabIndex = 0;
-            this.labelName.Dock = System.Windows.Forms.DockStyle.Top;
-            this.labelName.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.labelName.Size = new System.Drawing.Size(70, 23);
-            this.labelName.BackColor = System.Drawing.Color.Transparent;
-            this.labelName.Text = "Name:";
+            this.textBoxHex.Name = "textBoxHex";
+            this.textBoxHex.ReadOnly = true;
+            this.textBoxHex.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBoxHex.Size = new System.Drawing.Size(741, 273);
+            this.textBoxHex.TabIndex = 2;
             // 
             // MainWindow
             // 
-            this.Name = "MainWindow";
-            this.ClientSize = new System.Drawing.Size(355, 431);
+            this.ClientSize = new System.Drawing.Size(785, 431);
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.groupBoxFileInput);
+            this.Name = "MainWindow";
             this.Text = "ProjectRH";
             this.groupBoxFileInput.ResumeLayout(false);
+            this.groupBoxFileInput.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBrowseIcon)).EndInit();
             this.tabControl.ResumeLayout(false);
             this.tabPageDetail.ResumeLayout(false);
-            this.tabPageHex.ResumeLayout(false);
-            this.panelInfoValues.ResumeLayout(false);
             this.panelInfo.ResumeLayout(false);
+            this.panelInfoValues.ResumeLayout(false);
             this.panelInfoLabels.ResumeLayout(false);
+            this.tabPageHex.ResumeLayout(false);
+            this.tabPageHex.PerformLayout();
+            this.ResumeLayout(false);
+
         }
         private System.Windows.Forms.GroupBox groupBoxFileInput;
         private System.Windows.Forms.PictureBox pictureBoxBrowseIcon;

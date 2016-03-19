@@ -53,9 +53,11 @@ namespace ProjectRH
                 textBoxCurrentFile.Text = openFileDialog.FileName;
 
                 nvInspector = new NVInspector(openFileDialog.FileName);
-                labelSizeValue.Text = nvInspector.Bytes.Length.ToString();
+                labelSizeValue.Text = nvInspector.Data.Length.ToString();
 				labelNameValue.Text = Path.GetFileNameWithoutExtension(openFileDialog.FileName);
 				labelFormatValue.Text = "Unknown";
+
+                textBoxHex.Lines = nvInspector.GetLines(32);
             }
         }
 
