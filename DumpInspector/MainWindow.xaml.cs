@@ -56,7 +56,7 @@ namespace ProjectRH.DumpInspector {
                 try {
                     this.nvram = new NVRAM(ofd.FileName);
                     this.statusMessage.Content = nvram.Length.AsHumanFileSize();
-                    this.firmwareMessage.Content = String.Format("{0}", nvram.FirmwareVersion);
+                    this.firmwareMessage.Content = String.Format("{0}", nvram.FirmwareString);
                     dataGrid.ItemsSource = nvram.GetPasswords();
 
                 } catch (FirmwareException e) {

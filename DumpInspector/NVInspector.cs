@@ -14,7 +14,6 @@ namespace ProjectRH.DumpInspector {
         private byte[] Data { get; set; }
 
         public String FirmwareString { get; private set; }
-        public FirmwareVersion FirmwareVersion { get { return FirmwareString.ToFirmwareVersion(); } }
 
         public NVRAM(string filename) {
             this.Filename = Path.GetFileName(filename);
@@ -23,7 +22,7 @@ namespace ProjectRH.DumpInspector {
         }
 
         public List<AdministratorPassword> GetPasswords() {
-            return new NVScanner(this.FirmwareVersion).Scan(this.Data);
+            return Firmware.GetFirmware(FirmwareString).GetPasswords(Data);
         }
 
         public void WriteFile(String filename) {

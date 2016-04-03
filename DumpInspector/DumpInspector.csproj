@@ -67,8 +67,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="FirmwareVersion.cs" />
-    <Compile Include="NVScanner.cs" />
     <Compile Include="PasswordEditWindow.xaml.cs">
       <DependentUpon>PasswordEditWindow.xaml</DependentUpon>
     </Compile>
@@ -77,7 +75,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="AdministratorPassword.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -121,6 +118,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\ricoh_32x32.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Firmware\Firmware.csproj">
+      <Project>{57f74190-6526-4489-af51-fe3a0b4c366a}</Project>
+      <Name>Firmware</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

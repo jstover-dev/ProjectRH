@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DumpInspector", "DumpInspector\DumpInspector.csproj", "{3EA80EE5-A851-40A8-A32C-80590AD768DE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Firmware", "Firmware\Firmware.csproj", "{57F74190-6526-4489-AF51-FE3A0B4C366A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,16 @@ Global
 		{3EA80EE5-A851-40A8-A32C-80590AD768DE}.Release|Mixed Platforms.Build.0 = Release|x86
 		{3EA80EE5-A851-40A8-A32C-80590AD768DE}.Release|x86.ActiveCfg = Release|x86
 		{3EA80EE5-A851-40A8-A32C-80590AD768DE}.Release|x86.Build.0 = Release|x86
+		{57F74190-6526-4489-AF51-FE3A0B4C366A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57F74190-6526-4489-AF51-FE3A0B4C366A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57F74190-6526-4489-AF51-FE3A0B4C366A}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{57F74190-6526-4489-AF51-FE3A0B4C366A}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{57F74190-6526-4489-AF51-FE3A0B4C366A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{57F74190-6526-4489-AF51-FE3A0B4C366A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57F74190-6526-4489-AF51-FE3A0B4C366A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57F74190-6526-4489-AF51-FE3A0B4C366A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{57F74190-6526-4489-AF51-FE3A0B4C366A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{57F74190-6526-4489-AF51-FE3A0B4C366A}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

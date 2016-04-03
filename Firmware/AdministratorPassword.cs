@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ProjectRH.DumpInspector {
+namespace ProjectRH {
 
     public class AdministratorPassword {
         public int ID { get; set; }

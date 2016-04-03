@@ -2,40 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Windows.Input;
-using System.IO;
+using System.Threading.Tasks;
 
-namespace ProjectRH.DumpInspector {
-    public static class Extensions {
+namespace ProjectRH {
+    public abstract class AbstractFirmware : IFirmware {
 
-        public static InputGestureCollection AsCollection(this InputGesture g) {
-            return new InputGestureCollection(new[] { g });
+        public abstract List<AdministratorPassword> GetPasswords(byte[] data);
+
+        protected static readonly byte RICOH_ADMIN_START = 0xC3;
+
+        protected static readonly byte[] RICOH_ADMIN_ID = new byte[] { 0x5B, 0x5C, 0x5D, 0x5E, 0x5F };
+
+        protected static readonly byte RICOH_PASSWORD_PADDING = 0x72;
+
+        protected string HexConv(string s) {
+            return new String(s.Select(c => (char)HexConv((byte)c)).ToArray());
         }
 
-        static readonly string[] SizeSuffixes = { "bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
-
-        public static string AsHumanFileSize(this Int64 value) {
-            if (value < 0) { return "-" + AsHumanFileSize(-value); }
-            if (value == 0) { return "0.0 bytes"; }
-
-            int mag = (int)Math.Log(value, 1024);
-            decimal adjustedSize = (decimal)value / (1L << (mag * 10));
-
-            return string.Format("{0:n1} {1}", adjustedSize, SizeSuffixes[mag]);
-        }
-
-
-        /*
-        public static string RicohHexConv(this string s) {
-            return new String(s.Select(c => (char)RicohHexConv((byte)c)).ToArray());
-        }
-        */
-
-        public static string GetDirectoryName(this string s) {
-            return Path.GetDirectoryName(s);
-        }
-        /*
-        public static char RicohHexConv(this byte b) {
+        protected char HexConv(byte b) {
             switch (b) {
                 case 0x2A: return 'a';
                 case 0xEA: return 'b';
@@ -117,10 +101,9 @@ namespace ProjectRH.DumpInspector {
                 case 0xF9: return '.';
                 case 0xBD: return '?';
                 default: return (char)0;
-
             }
         }
-         * 
-         */ 
+
+
     }
 }
