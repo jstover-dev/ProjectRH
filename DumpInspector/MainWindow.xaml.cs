@@ -23,10 +23,13 @@ namespace ProjectRH.DumpInspector {
         private NVRAM nvram { get; set; }
         private Settings settings { get; set; }
 
+        private static readonly string VersionString = "ALPHA";
+
         public MainWindow() {
             InitializeComponent();
             InitializeSettings();
             this.Closed += (s, e) => OnApplicationExit();
+            this.Title = String.Format("{0} [{1}]", Title, VersionString);
         }
 
         private void InitializeSettings() {
@@ -86,8 +89,12 @@ namespace ProjectRH.DumpInspector {
         }
 
         private void EditPassword(AdministratorPassword pw) {
-            Console.WriteLine("[{0}] Name={1}, Password={2}", pw.ID, pw.Name, pw.Password);
-            //new NVPasswordEditor(AdministratorPassword p)
+            PasswordEditWindow editor = new PasswordEditWindow(pw);
+            if (editor.ShowDialog()??false) {
+                pw.Name = editor.Username.Text;
+                pw.Password = editor.Password.Text;
+                dataGrid.Items.Refresh();
+            }
         }
 
 
