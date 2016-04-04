@@ -16,7 +16,7 @@ namespace ProjectRH.DumpInspector {
     /// Interaction logic for PasswordEditWindow.xaml
     /// </summary>
     public partial class PasswordEditWindow : Window {
-        public PasswordEditWindow(AdministratorPassword p) {
+        public PasswordEditWindow(AdministratorLogin p) {
             InitializeComponent();
             this.Username.Text = p.Name;
             this.Password.Text = p.Password;

@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectRH {
+namespace ProjectRH.Firmware {
     public abstract class AbstractFirmware : IFirmware {
 
-        public abstract List<AdministratorPassword> GetPasswords(byte[] data);
+        public abstract List<AdministratorLogin> GetPasswords(byte[] data);
 
         protected static readonly byte RICOH_ADMIN_START = 0xC3;
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using ProjectRH.Firmware;
 
 namespace ProjectRH.DumpInspector {
 
@@ -15,14 +16,15 @@ namespace ProjectRH.DumpInspector {
 
         public String FirmwareString { get; private set; }
 
+
         public NVRAM(string filename) {
             this.Filename = Path.GetFileName(filename);
             this.Data = File.ReadAllBytes(filename);
             this.FirmwareString = GetFirmwareString();
         }
 
-        public List<AdministratorPassword> GetPasswords() {
-            return Firmware.GetFirmware(FirmwareString).GetPasswords(Data);
+        public List<AdministratorLogin> GetPasswords() {
+            return FirmwareTools.GetFirmware(FirmwareString).GetPasswords(Data);
         }
 
         public void WriteFile(String filename) {

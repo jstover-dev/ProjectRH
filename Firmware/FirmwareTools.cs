@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ProjectRH {
-    public static class Firmware {
+namespace ProjectRH.Firmware {
+    public static class FirmwareTools {
 
-        public static IFirmware GetFirmware(string version){
-            switch (version) {
+        public static IFirmware GetFirmware(string versionString){
+            switch (versionString) {
                 case "ATHENA_C1":
                     return new FW_Athena();
                 case "APOLLON_C1":
@@ -19,7 +19,7 @@ namespace ProjectRH {
                 case "VENUS_C2":
                     return new FW_Venus();
                 default:
-                    throw new UnrecognizedFirmwareException(version);
+                    throw new UnrecognizedFirmwareException(versionString);
             }
         }
 

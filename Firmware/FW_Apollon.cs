@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ProjectRH {
+namespace ProjectRH.Firmware {
     public class FW_Apollon : AbstractFirmware {
 
-        public override List<AdministratorPassword> GetPasswords(byte[] data) {
+        public override List<AdministratorLogin> GetPasswords(byte[] data) {
 
             int cursor = 0;
             int currentAdmin = -1;
-            var passwords = new List<AdministratorPassword>();
+            var passwords = new List<AdministratorLogin>();
             var currentName = new StringBuilder();
             var currentPassword = new StringBuilder();
 
@@ -40,7 +40,7 @@ namespace ProjectRH {
                     while (data[cursor] == RICOH_PASSWORD_PADDING) {
                         cursor++;
                     }
-                    passwords.Add(new AdministratorPassword { ID = currentAdmin, Name = currentName.ToString(), Password = currentPassword.ToString().Replace(((char)0).ToString(), "") });
+                    passwords.Add(new AdministratorLogin { ID = currentAdmin, Name = currentName.ToString(), Password = currentPassword.ToString().Replace(((char)0).ToString(), "") });
                 }
             }
             return passwords;

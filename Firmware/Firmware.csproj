@@ -7,7 +7,7 @@
     <ProjectGuid>{57F74190-6526-4489-AF51-FE3A0B4C366A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProjectRH</RootNamespace>
+    <RootNamespace>ProjectRH.Firmware</RootNamespace>
     <AssemblyName>ProjectRH.Firmware</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -40,8 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdministratorPassword.cs" />
-    <Compile Include="Firmware.cs" />
+    <Compile Include="AdministratorLogin.cs" />
+    <Compile Include="FirmwareTools.cs" />
     <Compile Include="FirmwareException.cs" />
     <Compile Include="FW_Dummy.cs" />
     <Compile Include="FW_Griffin.cs" />

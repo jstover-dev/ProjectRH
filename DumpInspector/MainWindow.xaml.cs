@@ -13,6 +13,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
 
+using ProjectRH.Firmware;
+
 namespace ProjectRH.DumpInspector {
 
     /// <summary>
@@ -52,7 +54,7 @@ namespace ProjectRH.DumpInspector {
             ofd.Filter = "NVRAM dump (*.nv, *.nvram)|*.nv;*.nvram|All Files (*.*)|*.*";
             ofd.InitialDirectory = settings.LastOpenDirectory;
             if (ofd.ShowDialog() == true) {
-                settings.LastOpenDirectory = ofd.FileName.GetDirectoryName();
+                settings.LastOpenDirectory = System.IO.Path.GetDirectoryName(ofd.FileName);
                 try {
                     this.nvram = new NVRAM(ofd.FileName);
                     this.statusMessage.Content = nvram.Length.AsHumanFileSize();
@@ -61,7 +63,7 @@ namespace ProjectRH.DumpInspector {
 
                 } catch (FirmwareException e) {
                     this.firmwareMessage.Content = String.Format("{0} (Unsupported)", nvram.FirmwareString);
-                    dataGrid.ItemsSource = new List<AdministratorPassword>();
+                    dataGrid.ItemsSource = new List<AdministratorLogin>();
                     Console.Error.WriteLine(e);
 
                 } finally {
@@ -82,13 +84,13 @@ namespace ProjectRH.DumpInspector {
         }
 
         private void ClearPasswords() {
-            foreach (AdministratorPassword x in dataGrid.Items) {
+            foreach (AdministratorLogin x in dataGrid.Items) {
                 x.Password = "";
             }
             dataGrid.Items.Refresh();
         }
 
-        private void EditPassword(AdministratorPassword pw) {
+        private void EditPassword(AdministratorLogin pw) {
             PasswordEditWindow editor = new PasswordEditWindow(pw);
             if (editor.ShowDialog()??false) {
                 pw.Name = editor.Username.Text;
@@ -122,7 +124,7 @@ namespace ProjectRH.DumpInspector {
 
         // Password Edit Button
         private void EditPassword(object sender, RoutedEventArgs e) {
-            this.EditPassword((sender as Button).DataContext as AdministratorPassword);
+            this.EditPassword((sender as Button).DataContext as AdministratorLogin);
         }
 
 /* Window Events */

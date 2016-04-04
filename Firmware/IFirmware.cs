@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectRH {
+namespace ProjectRH.Firmware {
     public interface IFirmware {
-        List<AdministratorPassword> GetPasswords(byte[] data);
+        List<AdministratorLogin> GetPasswords(byte[] data);
     }
 }

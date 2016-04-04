@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ProjectRH {
+namespace ProjectRH.Firmware {
 
     public class FirmwareException : Exception {
         public FirmwareException(string message) : base(message) { }

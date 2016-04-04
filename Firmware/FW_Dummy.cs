@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ProjectRH {
+namespace ProjectRH.Firmware {
     public class FW_Dummy : AbstractFirmware {
 
-        public override List<AdministratorPassword> GetPasswords(byte[] data) {
+        public override List<AdministratorLogin> GetPasswords(byte[] data) {
 
             int cursor = 0;
             int currentAdmin = -1;
-            var passwords = new List<AdministratorPassword>();
+            var passwords = new List<AdministratorLogin>();
             var currentName = new StringBuilder();
             var currentPassword = new StringBuilder();
 
