@@ -3,14 +3,14 @@
 namespace ProjectRH {
 
     public class AdministratorLogin {
+
         public int ID { get; set; }
-        public string Name { get; set; }
+        public string Username { get; set; }
         public string Password { get; set; }
 
-        private uint NameStartByte { get; set; }
-        private uint NameEndByte { get; set; }
-        private uint PasswordStartByte { get; set; }
-        private uint PasswordEndByte { get; set; }
+        public override string ToString() {
+            return string.Format("Administrator {0}: ({1}:{2})", ID, Username, Password);
+        }
 
     }
 

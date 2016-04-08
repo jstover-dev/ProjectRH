@@ -91,7 +91,7 @@ namespace ProjectRH.DumpInspector {
         private void EditPassword(AdministratorLogin pw) {
             PasswordEditWindow editor = new PasswordEditWindow(pw);
             if (editor.ShowDialog()??false) {
-                pw.Name = editor.Username.Text;
+                pw.Username = editor.Username.Text;
                 pw.Password = editor.Password.Text;
                 dataGrid.Items.Refresh();
             }

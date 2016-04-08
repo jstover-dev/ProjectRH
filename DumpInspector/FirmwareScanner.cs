@@ -50,7 +50,7 @@ namespace ProjectRH {
                     sb.Append((char)Data[i]);
                 }
             }
-            return decode? Firmware.HexConv(sb.ToString()) : sb.ToString() ;
+            return decode? FirmwareTools.HexConv(sb.ToString()) : sb.ToString() ;
         }
 
 
@@ -59,8 +59,8 @@ namespace ProjectRH {
 
             byte adminByte;
             int currentAdmin;
-            StringBuilder currentUsername = new StringBuilder();
-            StringBuilder currentPassword = new StringBuilder();
+            string currentUsername;
+            string currentPassword;
 
             for (int i = 1; i < Data.Length; i++) {
                 if (Data[i] == RICOH_ADMIN_START) {
@@ -79,10 +79,22 @@ namespace ProjectRH {
                     i += fw.PrePadCount;
                     i++;
 
-                    string supervisor_username = ReadString(i, fw.UsernameLength, fw.UsernamePadByte);
-                    string supervisor_password = ReadString(i, fw.SupervisorPasswordLength, fw.PasswordPadByte, true);
-                    Console.WriteLine("Administrator {0}: {1}:{2}", currentAdmin, supervisor_username, supervisor_password);
-                    Console.WriteLine();
+                    currentUsername = ReadString(i, fw.UsernameLength, fw.UsernamePadByte, fw.EncryptedUsername);
+                    i += fw.UsernameLength;
+
+                    if (currentAdmin == 0) {
+                        currentPassword = ReadString(i, fw.SupervisorPasswordLength, fw.PasswordPadByte, true);
+                        i += fw.SupervisorPasswordLength;
+                    } else {
+                        currentPassword = ReadString(i, fw.AdministratorPasswordLength, fw.PasswordPadByte, true);
+                        i += fw.AdministratorPasswordLength;
+                    }
+
+                    results.Add(new AdministratorLogin() {
+                        ID = currentAdmin,
+                        Username = currentUsername,
+                        Password = currentPassword
+                    });
                 }
             }
 

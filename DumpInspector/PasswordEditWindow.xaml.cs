@@ -18,7 +18,7 @@ namespace ProjectRH.DumpInspector {
     public partial class PasswordEditWindow : Window {
         public PasswordEditWindow(AdministratorLogin p) {
             InitializeComponent();
-            this.Username.Text = p.Name;
+            this.Username.Text = p.Username;
             this.Password.Text = p.Password;
         }
 

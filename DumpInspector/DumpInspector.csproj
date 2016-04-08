@@ -59,8 +59,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AdministratorLogin.cs" />
+    <Compile Include="Firmware.cs" />
+    <Compile Include="FirmwareDefinition.cs" />
     <Compile Include="FirmwareScanner.cs" />
-    <Compile Include="NV_Firmware.cs" />
+    <Compile Include="FirmwareTools.cs" />
     <Compile Include="Settings.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
