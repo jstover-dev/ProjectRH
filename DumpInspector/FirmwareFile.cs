@@ -26,12 +26,12 @@ namespace ProjectRH.DumpInspector {
         }
 
         public List<AdministratorLogin> GetPasswords() {
-            //return FirmwareTools.GetFirmware(FirmwareString).GetPasswords(Data);
-            return new List<AdministratorLogin>();
-
-            // switch on FirmwareString
-
-
+            foreach (var fwd in Firmware.GetFirmwareDefinitions()) {
+                if (fwd.ValidFirmwareStrings.Contains(FirmwareString)) {
+                    return Scanner.GetPasswords(fwd);
+                }
+            }
+            throw new Exception(string.Format("Matching firmware definition not found [{0}]", FirmwareString));
         }
 
         public void WriteFile(String filename) {
