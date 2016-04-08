@@ -9,6 +9,9 @@ namespace ProjectRH.Firmware {
 
         public abstract List<AdministratorLogin> GetPasswords(byte[] data);
 
+        //protected List<AdministratorLogin> GetAdministratorPasswords(byte[] data);
+
+
         protected static readonly byte RICOH_ADMIN_START = 0xC3;
 
         protected static readonly byte[] RICOH_ADMIN_ID = new byte[] { 0x5B, 0x5C, 0x5D, 0x5E, 0x5F };

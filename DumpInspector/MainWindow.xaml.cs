@@ -13,8 +13,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
 
-using ProjectRH.Firmware;
-
 namespace ProjectRH.DumpInspector {
 
     /// <summary>
@@ -22,7 +20,7 @@ namespace ProjectRH.DumpInspector {
     /// </summary>
     public partial class MainWindow : Window {
 
-        private NVRAM nvram { get; set; }
+        private FirmwareFile firmware { get; set; }
         private Settings settings { get; set; }
 
         private static readonly string VersionString = "ALPHA";
@@ -55,20 +53,20 @@ namespace ProjectRH.DumpInspector {
             ofd.InitialDirectory = settings.LastOpenDirectory;
             if (ofd.ShowDialog() == true) {
                 settings.LastOpenDirectory = System.IO.Path.GetDirectoryName(ofd.FileName);
-                try {
-                    this.nvram = new NVRAM(ofd.FileName);
-                    this.statusMessage.Content = nvram.Length.AsHumanFileSize();
-                    this.firmwareMessage.Content = String.Format("{0}", nvram.FirmwareString);
-                    dataGrid.ItemsSource = nvram.GetPasswords();
 
+                //try {
+                    this.firmware = new FirmwareFile(ofd.FileName);
+                    this.statusMessage.Content = firmware.Length.AsHumanFileSize();
+                    this.firmwareMessage.Content = String.Format("{0}", firmware.FirmwareString);
+                    dataGrid.ItemsSource = firmware.GetPasswords();
+                /*
                 } catch (FirmwareException e) {
-                    this.firmwareMessage.Content = String.Format("{0} (Unsupported)", nvram.FirmwareString);
+                    this.firmwareMessage.Content = String.Format("{0} (Unsupported)", firmware.FirmwareString);
                     dataGrid.ItemsSource = new List<AdministratorLogin>();
                     Console.Error.WriteLine(e);
 
-                } finally {
-                    dataGrid.Items.Refresh();
-                }
+                } */
+                dataGrid.Items.Refresh();
                 
             }
         }
@@ -79,7 +77,7 @@ namespace ProjectRH.DumpInspector {
             sfd.InitialDirectory = settings.LastExportFile;
             if (sfd.ShowDialog() == true) {
                 settings.LastExportFile = sfd.FileName;
-                nvram.WriteFile(sfd.FileName);
+                firmware.WriteFile(sfd.FileName);
             }
         }
 
@@ -145,7 +143,7 @@ namespace ProjectRH.DumpInspector {
 
         // Enable command if a file has been opened
         private void ExecuteIfFileOpen(object sender, CanExecuteRoutedEventArgs e) {
-            e.CanExecute = (this.nvram != null);
+            e.CanExecute = (this.firmware != null);
         }
 
         // disable command

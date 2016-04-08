@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Firmware")]
+[assembly: AssemblyTitle("DumpInspector.Test")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Firmware")]
+[assembly: AssemblyProduct("DumpInspector.Test")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("d8af6b61-c8a2-4246-9db3-7933eddaeae2")]
+[assembly: Guid("b7f89c90-ca4a-4adf-b039-d1f0407f887c")]
 
 // Version information for an assembly consists of the following four values:
 //

@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:self="clr-namespace:ProjectRH.DumpInspector"
         Title="Ricoh NVRAM Reader" Width="300"
-        SizeToContent="WidthAndHeight" Loaded="Window_Loaded" ResizeMode="NoResize" MinWidth="300" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow" Icon="/DumpInspector;component/Assets/ricoh_32x32.ico">
+        SizeToContent="WidthAndHeight" Loaded="Window_Loaded" ResizeMode="NoResize" MinWidth="300" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow" Icon="/ProjectRH.DumpInspector;component/ricoh_32x32.ico">
     
     <Window.CommandBindings>
         <CommandBinding Command="self:Commands.Open"   Executed="OpenCommand_Executed" />

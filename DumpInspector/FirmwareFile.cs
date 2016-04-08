@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
-using ProjectRH.Firmware;
+using ProjectRH;
 
 namespace ProjectRH.DumpInspector {
 
-    public class NVRAM {
+    public class FirmwareFile {
 
         public string Filename { get; private set; }
         public Int64 Length { get { return this.Data.Length; } }
@@ -16,31 +16,27 @@ namespace ProjectRH.DumpInspector {
 
         public String FirmwareString { get; private set; }
 
+        public FirmwareScanner Scanner { get; private set; }
 
-        public NVRAM(string filename) {
+        public FirmwareFile(string filename) {
             this.Filename = Path.GetFileName(filename);
             this.Data = File.ReadAllBytes(filename);
-            this.FirmwareString = GetFirmwareString();
+            this.Scanner = new FirmwareScanner(Data);
+            this.FirmwareString = Scanner.GetFirmwareString();
         }
 
         public List<AdministratorLogin> GetPasswords() {
-            return FirmwareTools.GetFirmware(FirmwareString).GetPasswords(Data);
+            //return FirmwareTools.GetFirmware(FirmwareString).GetPasswords(Data);
+            return new List<AdministratorLogin>();
+
+            // switch on FirmwareString
+
+
         }
 
         public void WriteFile(String filename) {
             File.WriteAllBytes(filename, Data);
         }
-
-        private String GetFirmwareString() {
-            StringBuilder sb = new StringBuilder();
-            int cursor = Array.IndexOf(Data, (byte)0x28) + 1;
-            while (Data[cursor] != 0x29) {
-                sb.Append((char)Data[cursor]);
-                cursor++;
-            }
-            return sb.ToString();
-        }
-
 
     }
 
