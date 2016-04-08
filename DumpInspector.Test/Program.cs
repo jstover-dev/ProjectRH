@@ -32,30 +32,25 @@ namespace DumpInspector.Test {
            
                 FirmwareScanner scanner = new FirmwareScanner(f.Data);
 
-                IFirmwareDefinition fw = new BasicFirmwareDefinition(
-                    ValidFirmwareStrings: new[] { "APOLLON_C1" },
-                    UADVersion: 7,
-                    ReverseLoginByte: false,
-                    PrePadCount: 4,
-                    PostPadCount: 2
-                );
+                foreach (IFirmwareDefinition fw in Firmware.GetFirmwareDefinitions()) {
+                    if (fw.ValidFirmwareStrings.Contains(scanner.GetFirmwareString())) {
 
-                if (!fw.ValidFirmwareStrings.Contains(scanner.GetFirmwareString())){
-                    continue;
+                        Debug.Assert(scanner.GetUADVersion() == fw.UADVersion);
+
+                        Console.WriteLine("\n================================================================================");
+                        Console.WriteLine("{0} ({1})", f.Filename, f.Data.Length);
+                        Console.WriteLine("UAD Version: {0}", scanner.GetUADVersion());
+                        Console.WriteLine("FW Type:     {0}", scanner.GetFirmwareString());
+                        Console.WriteLine("NameLength:  {0}", fw.UsernameLength);
+
+                        foreach (AdministratorLogin a in scanner.GetPasswords(fw)) {
+                            Console.WriteLine(a);
+                        }
+
+                    }
                 }
 
-                Debug.Assert(scanner.GetUADVersion() == 7 || scanner.GetUADVersion() == 9);
-
-                Console.WriteLine("\n================================================================================");
-                Console.WriteLine("{0} ({1})", f.Filename, f.Data.Length);
-                Console.WriteLine("UAD Version: {0}", scanner.GetUADVersion());
-                Console.WriteLine("FW Type:     {0}", scanner.GetFirmwareString());
-                Console.WriteLine("NameLength:  {0}", fw.UsernameLength);
-
-                scanner.GetPasswords(fw);
-
             }
-
 
         }
     }
