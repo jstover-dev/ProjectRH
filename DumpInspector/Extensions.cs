@@ -22,6 +22,5 @@ namespace ProjectRH.DumpInspector {
             return string.Format("{0:n1} {1}", adjustedSize, SizeSuffixes[mag]);
         }
 
-
     }
 }

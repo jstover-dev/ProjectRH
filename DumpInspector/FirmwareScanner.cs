@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using ProjectRH;
+using System.Diagnostics;
 
 namespace ProjectRH {
 
@@ -49,11 +50,8 @@ namespace ProjectRH {
                     sb.Append((char)Data[i]);
                 }
             }
-            
-            return decode? sb.ToString() : sb.ToString() ;
+            return decode? Firmware.HexConv(sb.ToString()) : sb.ToString() ;
         }
-
-
 
 
         public List<AdministratorLogin> GetPasswords(IFirmwareDefinition fw) {
@@ -66,7 +64,6 @@ namespace ProjectRH {
 
             for (int i = 1; i < Data.Length; i++) {
                 if (Data[i] == RICOH_ADMIN_START) {
-                    Console.WriteLine("[{0:x2}]", i);
 
                     if (fw.ReverseLoginByte) {
                         adminByte = Data[i - 1];
@@ -75,19 +72,17 @@ namespace ProjectRH {
                         i++;
                     }
                     
-
                     if ((currentAdmin = Array.IndexOf(RICOH_ADMIN_ID, adminByte)) < 0) {
                         continue;
                     }
-                    Console.WriteLine("[{0}] found administrator {1}", i, adminByte);
 
                     i += fw.PrePadCount;
                     i++;
 
-                    Console.WriteLine(ReadString(i, fw.UsernameLength, fw.UsernamePadByte));
-
-
-
+                    string supervisor_username = ReadString(i, fw.UsernameLength, fw.UsernamePadByte);
+                    string supervisor_password = ReadString(i, fw.SupervisorPasswordLength, fw.PasswordPadByte, true);
+                    Console.WriteLine("Administrator {0}: {1}:{2}", currentAdmin, supervisor_username, supervisor_password);
+                    Console.WriteLine();
                 }
             }
 

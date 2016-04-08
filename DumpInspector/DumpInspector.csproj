@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{8BCAA826-AAD1-4CB2-9A76-EBB70D193C31}</ProjectGuid>
+    <ProjectGuid>{3EA80EE5-A851-40A8-A32C-80590AD768DE}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ProjectRH.DumpInspector</RootNamespace>
