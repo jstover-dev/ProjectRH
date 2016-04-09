@@ -54,6 +54,26 @@ namespace ProjectRH {
         }
 
 
+        public List<AdministratorLogin> GetPasswords() {
+            var fwd = new BasicFirmwareDefinition(GetUADVersion());
+            foreach (var rule in FirmwareRule.GetRules().Where(r => r.MatchingFirmwareStrings.Contains(GetFirmwareString())) ) {
+                
+                Console.WriteLine("Using {0} Rule", rule.FirmwareRuleType);
+
+                if (rule.FirmwareRuleType == FirmwareRuleType.LoginByteOrder) {
+                    fwd.ReverseLoginByte = rule.ReverseLoginByteOrder;
+                }
+
+                if (rule.FirmwareRuleType == FirmwareRuleType.LoginByteSet) {
+                
+                }
+
+            }
+
+            return GetPasswords(fwd);
+        }
+
+
         public List<AdministratorLogin> GetPasswords(IFirmwareDefinition fw) {
             List<AdministratorLogin> results = new List<AdministratorLogin>();
 

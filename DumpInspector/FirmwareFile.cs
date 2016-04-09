@@ -25,13 +25,15 @@ namespace ProjectRH.DumpInspector {
             this.FirmwareString = Scanner.GetFirmwareString();
         }
 
+        public IFirmwareDefinition GetFirmware() {
+            IFirmwareDefinition fwd = new BasicFirmwareDefinition(
+                UADVersion: Scanner.GetUADVersion()
+            );
+            return fwd;
+        }
+
         public List<AdministratorLogin> GetPasswords() {
-            foreach (var fwd in Firmware.GetFirmwareDefinitions()) {
-                if (fwd.ValidFirmwareStrings.Contains(FirmwareString)) {
-                    return Scanner.GetPasswords(fwd);
-                }
-            }
-            throw new Exception(string.Format("Matching firmware definition not found [{0}]", FirmwareString));
+            return Scanner.GetPasswords();
         }
 
         public void WriteFile(String filename) {

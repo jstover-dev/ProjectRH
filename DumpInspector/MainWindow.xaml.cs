@@ -23,7 +23,7 @@ namespace ProjectRH.DumpInspector {
         private FirmwareFile firmware { get; set; }
         private Settings settings { get; set; }
 
-        private static readonly string VersionString = "1.01";
+        private static readonly string VersionString = "1.02";
 
         public MainWindow() {
             InitializeComponent();
@@ -51,7 +51,7 @@ namespace ProjectRH.DumpInspector {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "NVRAM dump (*.nv, *.nvram)|*.nv;*.nvram|All Files (*.*)|*.*";
             ofd.InitialDirectory = settings.LastOpenDirectory;
-            if (ofd.ShowDialog() == true) {
+            if (ofd.ShowDialog(this) == true) {
                 settings.LastOpenDirectory = System.IO.Path.GetDirectoryName(ofd.FileName);
 
                 this.firmware = new FirmwareFile(ofd.FileName);
