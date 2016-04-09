@@ -31,7 +31,7 @@ namespace DumpInspector.Test {
             foreach (var f in GetFirmwareDumps(@"C:\Users\josh\Desktop\NV")) {
            
                 FirmwareScanner scanner = new FirmwareScanner(f.Data);
-
+                /*
                 foreach (IFirmwareDefinition fw in Firmware.GetFirmwareDefinitions()) {
                     if (fw.ValidFirmwareStrings.Contains(scanner.GetFirmwareString())) {
 
@@ -49,7 +49,7 @@ namespace DumpInspector.Test {
 
                     }
                 }
-
+                */
             }
 
         }
