@@ -26,7 +26,7 @@ namespace ProjectRH.DumpInspector {
         }
 
         public IFirmwareDefinition GetFirmware() {
-            IFirmwareDefinition fwd = new BasicFirmwareDefinition(
+            IFirmwareDefinition fwd = new DefaultFirmwareDefinition(
                 UADVersion: Scanner.GetUADVersion()
             );
             return fwd;

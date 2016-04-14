@@ -16,9 +16,9 @@ namespace ProjectRH.DumpInspector {
     [Serializable]
     public class Settings {
 
-        public string LastOpenDirectory;
+        public string LastOpenPath;
 
-        public string LastExportFile;
+        public string LastExportPath;
 
         [NonSerialized]
         public Exception LastException;
@@ -57,8 +57,8 @@ namespace ProjectRH.DumpInspector {
                 stream = new FileStream(Filename, FileMode.Open, FileAccess.Read, FileShare.Read);
                 settings = (Settings)formatter.Deserialize(stream);
                 stream.Close();
-                this.LastOpenDirectory = settings.LastOpenDirectory;
-                this.LastExportFile = settings.LastExportFile;
+                this.LastOpenPath = settings.LastOpenPath;
+                this.LastExportPath = settings.LastExportPath;
                 return SettingsResult.LoadOK;
 
             } catch (FileNotFoundException) {

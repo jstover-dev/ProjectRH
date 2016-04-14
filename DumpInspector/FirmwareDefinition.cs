@@ -15,35 +15,45 @@ namespace ProjectRH {
         int UADVersion                  { get; }
         bool EncryptedPassword          { get; }
         bool EncryptedUsername          { get; }
-        bool ReverseLoginByte           { get; }
         byte PasswordPadByte            { get; }
         byte UsernamePadByte            { get; }
+        bool ReverseLoginByte           { get; set; }
+        byte LoginMajorByte             { get; set; }
+        byte[] LoginMinorBytes          { get; set; }
     }
 
 
     public abstract class AbstractFirmwareDefinition : IFirmwareDefinition {
-        virtual public int AdministratorCount           { get { return 5; } }
-        virtual public int UsernameLength               { get { return 0x20; } }
-        virtual public int SupervisorPasswordLength     { get { return 0x20; } }
-        virtual public int AdministratorPasswordLength  { get { return 0x40; } }
-        virtual public bool EncryptedPassword           { get { return true; } }
-        virtual public bool EncryptedUsername           { get { return UADVersion == 9; } }
-        virtual public byte PasswordPadByte             { get { return (byte)0x72; } }
-        virtual public byte UsernamePadByte             { get { return UADVersion == 9 ? (byte)0x72 : (byte)0; } }
-        virtual public int PostPadCount                 { get { return 8 - PrePadCount; } }
-        virtual public int PrePadCount                  { get { return ReverseLoginByte ? 6 : 4; } }
-        abstract public bool ReverseLoginByte           { get; set; }
-        abstract public int UADVersion                  { get; set; }
+        public virtual int AdministratorCount { get { return 5; } }
+        public virtual int UsernameLength               { get { return 0x20; } }
+        public virtual int SupervisorPasswordLength     { get { return 0x20; } }
+        public virtual int AdministratorPasswordLength  { get { return 0x40; } }
+        public virtual bool EncryptedPassword           { get { return true; } }
+        public virtual bool EncryptedUsername           { get { return UADVersion == 9; } }
+        public virtual byte PasswordPadByte             { get { return (byte)0x72; } }
+        public virtual byte UsernamePadByte             { get { return UADVersion == 9 ? (byte)0x72 : (byte)0; } }
+        public virtual int PostPadCount                 { get { return 8 - PrePadCount; } }
+        public virtual int PrePadCount                  { get { return ReverseLoginByte ? 6 : 4; } }
+
+        public abstract int UADVersion                  { get; protected set; }
+        public abstract byte LoginMajorByte             { get; set; }
+        public abstract byte[] LoginMinorBytes          { get; set; }
+        public abstract bool ReverseLoginByte           { get; set; }
     }
 
 
-    public class BasicFirmwareDefinition : AbstractFirmwareDefinition {
+    public class DefaultFirmwareDefinition : AbstractFirmwareDefinition {
 
-        override public int UADVersion                  { get; set; }
-        override public bool ReverseLoginByte           { get; set; }
+        public override int UADVersion                  { get; protected set; }
+        public override byte LoginMajorByte             { get; set; }
+        public override bool ReverseLoginByte           { get; set; }
+        public override byte[] LoginMinorBytes          { get; set; }
 
-        public BasicFirmwareDefinition(int UADVersion) {
+        public DefaultFirmwareDefinition(int UADVersion) {
             this.UADVersion = UADVersion;
+            this.ReverseLoginByte = false;
+            this.LoginMajorByte = (byte)0xC3;
+            this.LoginMinorBytes = new byte[] { 0x5B, 0x5C, 0x5D, 0x5E, 0x5F };
         }
     }
 
