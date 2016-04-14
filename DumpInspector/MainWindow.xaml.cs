@@ -23,7 +23,7 @@ namespace ProjectRH.DumpInspector {
         private FirmwareFile firmware { get; set; }
         private Settings settings { get; set; }
 
-        private static readonly string VersionString = "1.02";
+        private static readonly string VersionString = "1.03";
 
         public MainWindow() {
             InitializeComponent();
