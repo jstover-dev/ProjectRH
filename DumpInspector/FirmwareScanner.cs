@@ -11,9 +11,9 @@ namespace ProjectRH {
 
     public class FirmwareScanner {
 
-        private static readonly byte[] RICOH_ADMIN_ID = new byte[] { 0x5B, 0x5C, 0x5D, 0x5E, 0x5F };
+        //private static readonly byte[] RICOH_ADMIN_ID = new byte[] { 0x5B, 0x5C, 0x5D, 0x5E, 0x5F };
         
-        protected static readonly byte RICOH_ADMIN_START = 0xC3;
+        //protected static readonly byte RICOH_ADMIN_START = 0xC3;
 
         private byte[] Data { get; set; }
 
@@ -55,7 +55,7 @@ namespace ProjectRH {
 
 
         public List<AdministratorLogin> GetPasswords() {
-            var fwd = new BasicFirmwareDefinition(GetUADVersion());
+            var fwd = new DefaultFirmwareDefinition(GetUADVersion());
             foreach (var rule in FirmwareRule.GetRules().Where(r => r.MatchingFirmwareStrings.Contains(GetFirmwareString())) ) {
                 
                 Console.WriteLine("Using {0} Rule", rule.FirmwareRuleType);
@@ -83,7 +83,7 @@ namespace ProjectRH {
             string currentPassword;
 
             for (int i = 1; i < Data.Length; i++) {
-                if (Data[i] == RICOH_ADMIN_START) {
+                if (Data[i] == fw.LoginMajorByte) {
 
                     if (fw.ReverseLoginByte) {
                         adminByte = Data[i - 1];
@@ -92,7 +92,7 @@ namespace ProjectRH {
                         i++;
                     }
                     
-                    if ((currentAdmin = Array.IndexOf(RICOH_ADMIN_ID, adminByte)) < 0) {
+                    if ((currentAdmin = Array.IndexOf(fw.LoginMinorBytes, adminByte)) < 0) {
                         continue;
                     }
 
