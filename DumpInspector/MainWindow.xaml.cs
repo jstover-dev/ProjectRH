@@ -47,28 +47,50 @@ namespace ProjectRH.DumpInspector {
             this.OpenFile();
         }
 
-        private void OpenFile() {
+        private OpenFileDialog ShowFileOpenDialog(){
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "NVRAM dump (*.nv, *.nvram)|*.nv;*.nvram|All Files (*.*)|*.*";
-            ofd.InitialDirectory = settings.LastOpenDirectory;
-            if (ofd.ShowDialog(this) == true) {
-                settings.LastOpenDirectory = System.IO.Path.GetDirectoryName(ofd.FileName);
+            ofd.InitialDirectory = System.IO.Directory.Exists(settings.LastOpenPath) ? settings.LastOpenPath : null ;
+            bool success = false;
+            try {
+                success = ofd.ShowDialog(this) ?? false;
+            } catch (System.ComponentModel.Win32Exception) {
+                ofd.InitialDirectory = null;
+                success = ofd.ShowDialog(this) ?? false;
+            }
+            return success ? ofd : null ;
+        }
 
+        private SaveFileDialog ShowFileExportDialog() {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "NVRAM Dump (*.nv)|*.nv";
+            sfd.InitialDirectory = System.IO.Directory.Exists(settings.LastExportPath) ? settings.LastExportPath : null ;
+            bool success = false;
+            try {
+                success = sfd.ShowDialog(this) ?? false;
+            } catch (System.ComponentModel.Win32Exception) {
+                sfd.InitialDirectory = null;
+                success = sfd.ShowDialog(this) ?? false;
+            }
+            return success ? sfd : null;
+        }
+
+        private void OpenFile() {
+            OpenFileDialog ofd;
+            if ((ofd = ShowFileOpenDialog()) != null) {
+                settings.LastOpenPath = System.IO.Path.GetDirectoryName(ofd.FileName);
                 this.firmware = new FirmwareFile(ofd.FileName);
                 this.statusMessage.Content = firmware.Length.AsHumanFileSize();
                 this.firmwareMessage.Content = String.Format("{0}", firmware.FirmwareString);
                 dataGrid.ItemsSource = firmware.GetPasswords();
                 dataGrid.Items.Refresh();
-                
             }
         }
 
         private void ExportFile() {
-            SaveFileDialog sfd = new SaveFileDialog();
-            sfd.Filter = "NVRAM Dump (*.nv)|*.nv";
-            sfd.InitialDirectory = settings.LastExportFile;
-            if (sfd.ShowDialog() == true) {
-                settings.LastExportFile = sfd.FileName;
+            SaveFileDialog sfd;
+            if ((sfd = ShowFileExportDialog()) != null) {
+                settings.LastExportPath = System.IO.Path.GetDirectoryName(sfd.FileName);
                 firmware.WriteFile(sfd.FileName);
             }
         }
