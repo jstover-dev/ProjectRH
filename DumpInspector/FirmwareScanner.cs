@@ -65,7 +65,8 @@ namespace ProjectRH {
                 }
 
                 if (rule.FirmwareRuleType == FirmwareRuleType.LoginByteSet) {
-                
+                    fwd.LoginMajorByte = rule.LoginMajorByte;
+                    fwd.LoginMinorBytes = rule.LoginMinorBytes;
                 }
 
             }
