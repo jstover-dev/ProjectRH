@@ -1,6 +1,6 @@
 #ProjectRH
 
-##Release Checksums
+##Release MD5 Checksums
 
 * ProjectRH.DumpInspector_1.01.exe `0122ccc9020414dc1a7fffb0831fff5a`
 * ProjectRH.DumpInspector_1.02.exe `34a7f3d925080addf08d9cd1307cc2f4`
