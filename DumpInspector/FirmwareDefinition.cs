@@ -30,8 +30,8 @@ namespace ProjectRH {
         public virtual int AdministratorPasswordLength  { get { return 0x40; } }
         public virtual bool EncryptedPassword           { get { return true; } }
         public virtual bool EncryptedUsername           { get { return UADVersion == 9; } }
-        public virtual byte PasswordPadByte             { get { return (byte)0x72; } }
-        public virtual byte UsernamePadByte             { get { return UADVersion == 9 ? (byte)0x72 : (byte)0; } }
+        public virtual byte PasswordPadByte             { get { return EncryptedPassword ? (byte)0x72 : (byte)0; } }
+        public virtual byte UsernamePadByte             { get { return EncryptedUsername ? (byte)0x72 : (byte)0; } }
         public virtual int PostPadCount                 { get { return 8 - PrePadCount; } }
         public virtual int PrePadCount                  { get { return ReverseLoginByte ? 6 : 4; } }
 
