@@ -11,12 +11,7 @@ namespace ProjectRH {
 
     public class FirmwareScanner {
 
-        //private static readonly byte[] RICOH_ADMIN_ID = new byte[] { 0x5B, 0x5C, 0x5D, 0x5E, 0x5F };
-        
-        //protected static readonly byte RICOH_ADMIN_START = 0xC3;
-
         private byte[] Data { get; set; }
-
 
         public FirmwareScanner(byte[] data) {
             Data = data;
@@ -24,9 +19,9 @@ namespace ProjectRH {
 
         public string GetFirmwareString() {
             StringBuilder sb = new StringBuilder();
-            int cursor = Array.IndexOf(Data, (byte)0x28) + 1;
+            int cursor = Array.IndexOf(Data, (byte)'(') + 1;
             int maxLength = 32;
-            while (Data[cursor] != 0x29 && (--maxLength > 0)) {
+            while (cursor<Data.Length && Data[cursor] != (byte)')' && (--maxLength > 0)) {
                 sb.Append((char)Data[cursor]);
                 cursor++;
             }
@@ -35,7 +30,7 @@ namespace ProjectRH {
 
         public int GetUADVersion() {
             for (int i = 0; i < Data.Length - 3; i++) {
-                if (Data[i] == 0x55 && Data[i + 1] == 0x41 && Data[i + 2] == 0x44) {
+                if (Data[i] == (byte)'U' && Data[i + 1] == (byte)'A' && Data[i + 2] == (byte)'D') {
                     return int.Parse(((char)Data[i + 3]).ToString());
                 }
             }
