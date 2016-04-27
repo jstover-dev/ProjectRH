@@ -2,13 +2,14 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:self="clr-namespace:ProjectRH.DumpInspector"
-        Title="Ricoh NVRAM Reader" SizeToContent="Manual" Loaded="Window_Loaded" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow" Icon="/ProjectRH.DumpInspector;component/ricoh_32x32.ico" Width="500" MinWidth="300" MinHeight="180" MaxHeight="180">
+        Title="Firmware Reader" SizeToContent="Manual" Loaded="Window_Loaded" ResizeMode="CanResize" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow" Icon="/ProjectRH.DumpInspector;component/ricoh_32x32.ico" Width="500" MinWidth="300" MinHeight="180" MaxHeight="180">
     
     <Window.CommandBindings>
         <CommandBinding Command="self:Commands.Open"   Executed="OpenCommand_Executed" />
         <CommandBinding Command="self:Commands.Exit"   Executed="ExitCommand_Executed" />
         <CommandBinding Command="self:Commands.Export" Executed="ExportCommand_Executed" CanExecute="ExecutionDisabled" />
         <CommandBinding Command="self:Commands.Clear"  Executed="ClearCommand_Executed" CanExecute="ExecuteIfFileOpen"  />
+        <CommandBinding Command="self:Commands.ScannerSettings" Executed="ScannerSettingsCommand_Executed" CanExecute="ExecuteIfFileOpen" />
     </Window.CommandBindings>
     
     <DockPanel LastChildFill="True">
@@ -22,6 +23,7 @@
             </MenuItem>
             <MenuItem Header="_Edit">
                 <MenuItem Header="_Clear Passwords" Command="self:Commands.Clear" />
+                <MenuItem Header="_Scanner Settings" Command="self:Commands.ScannerSettings" />
             </MenuItem>
         </Menu>
 

@@ -94,11 +94,20 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AdministratorLogin.cs" />
+    <Compile Include="UpdateableTextBox.cs" />
+    <Compile Include="HexOnlyTextBox.cs" />
+    <Compile Include="ScannerSettingsWindow.xaml.cs">
+      <DependentUpon>ScannerSettingsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FirmwareRule.cs" />
     <Compile Include="FirmwareDefinition.cs" />
     <Compile Include="FirmwareScanner.cs" />
     <Compile Include="FirmwareTools.cs" />
     <Compile Include="Settings.cs" />
+    <Page Include="ScannerSettingsWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

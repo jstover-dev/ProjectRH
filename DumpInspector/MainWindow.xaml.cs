@@ -44,7 +44,8 @@ namespace ProjectRH.DumpInspector {
         }
 
         private void OnApplicationStart() {
-            this.OpenFile();
+            //this.OpenFile();
+            this.ShowScannerSettings();
         }
 
         private OpenFileDialog ShowFileOpenDialog(){
@@ -102,6 +103,11 @@ namespace ProjectRH.DumpInspector {
             dataGrid.Items.Refresh();
         }
 
+        private void ShowScannerSettings(){
+            ScannerSettingsWindow w = new ScannerSettingsWindow(this);
+            w.ShowDialog();
+        }
+
         private void EditPassword(AdministratorLogin pw) {
             PasswordEditWindow editor = new PasswordEditWindow(pw, this);
             if (editor.ShowDialog()??false) {
@@ -134,10 +140,16 @@ namespace ProjectRH.DumpInspector {
             this.ClearPasswords();
         }
 
+        // Edit -> Scanner Settings
+        private void ScannerSettingsCommand_Executed(object sender, ExecutedRoutedEventArgs e) {
+            this.ShowScannerSettings();
+        }
+
         // Password Edit Button
         private void EditPassword(object sender, RoutedEventArgs e) {
             this.EditPassword((sender as Button).DataContext as AdministratorLogin);
         }
+
 
 /* Window Events */
 
@@ -164,6 +176,10 @@ namespace ProjectRH.DumpInspector {
         // disable command
         private void ExecutionDisabled(object sender, CanExecuteRoutedEventArgs e) {
             e.CanExecute = false;
+        }
+
+        private void ExecutionEnabled(object sender, CanExecuteRoutedEventArgs e) {
+            e.CanExecute = true;
         }
 
     }
@@ -196,6 +212,12 @@ namespace ProjectRH.DumpInspector {
             "Clear",
             typeof(MenuItem),
             new KeyGesture(Key.C, ModifierKeys.Alt).AsCollection()
+        );
+        public static RoutedCommand ScannerSettings = new RoutedUICommand(
+            "Scanner Settings",
+            "ScannerSettings",
+            typeof(MenuItem),
+            new KeyGesture(Key.S, ModifierKeys.Alt).AsCollection()
         );
     }
 

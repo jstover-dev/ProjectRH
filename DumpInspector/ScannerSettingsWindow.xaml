@@ -1,0 +1,39 @@
+﻿<Window x:Class="ProjectRH.DumpInspector.ScannerSettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:custom="clr-namespace:ProjectRH.DumpInspector"
+        Title="Scanner Settings"
+        Width="400" WindowStyle="ToolWindow"
+        Height="Auto" SizeToContent="Height"
+        MinHeight="150"
+        MaxHeight="300" WindowStartupLocation="CenterOwner" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" d:DesignHeight="216">
+    <StackPanel Margin="10" FlowDirection="LeftToRight" VerticalAlignment="Bottom">
+        <Grid Height="137">
+            <Label Content="UADVersion" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="6,8,0,0"/>
+            <ComboBox Margin="115,12,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="32" />
+            <custom:UpdateableTextBox x:Name="LoginMajorByteHex" CharacterRestrictionRegex=""  Margin="115,40,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="32" MaxLength="2" />
+            <Label Content="LoginMajorByte" HorizontalAlignment="Left" Margin="6,36,0,0" VerticalAlignment="Top" />
+            <custom:UpdateableTextBox x:Name="LoginMajorByteAscii" Margin="115,64,211,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="32" MaxLength="1" />
+            <Label Content="HEX" Height="24" HorizontalAlignment="Left" Margin="153,36,0,0" Name="label1" VerticalAlignment="Top" Width="32" />
+            <Label Content="ASCII" Height="24" HorizontalAlignment="Left" Margin="153,60,0,0" Name="label2" VerticalAlignment="Top" Width="44" />
+            <Label Content="LoginMinorBytes" HorizontalAlignment="Left" Margin="6,84,0,0" VerticalAlignment="Top" />
+            <custom:UpdateableTextBox Margin="115,88,0,0" x:Name="LoginMinorByte1Hex" VerticalAlignment="Top" HorizontalAlignment="Left" Width="32" />
+            <custom:UpdateableTextBox Margin="153,88,0,0" x:Name="LoginMinorByte2Hex" VerticalAlignment="Top" HorizontalAlignment="Left" Width="32" />
+            <custom:UpdateableTextBox Margin="193,88,0,0" x:Name="LoginMinorByte3Hex" VerticalAlignment="Top" HorizontalAlignment="Left" Width="32" />
+            <custom:UpdateableTextBox Margin="231,88,0,0" x:Name="LoginMinorByte4Hex" VerticalAlignment="Top" HorizontalAlignment="Left" Width="32" />
+            <custom:UpdateableTextBox Margin="269,88,0,0" x:Name="LoginMinorByte5Hex" VerticalAlignment="Top" HorizontalAlignment="Left" Width="32" />
+            <custom:UpdateableTextBox Margin="115,112,0,0" x:Name="LoginMinorByte1Ascii" VerticalAlignment="Top" HorizontalAlignment="Left" Width="32" />
+            <custom:UpdateableTextBox Margin="153,112,0,0" x:Name="LoginMinorByte2Ascii" VerticalAlignment="Top" HorizontalAlignment="Left" Width="32" />
+            <custom:UpdateableTextBox Margin="193,112,0,0" x:Name="LoginMinorByte3Ascii" VerticalAlignment="Top" HorizontalAlignment="Left" Width="32" />
+            <custom:UpdateableTextBox Margin="231,112,0,0" x:Name="LoginMinorByte4Ascii" VerticalAlignment="Top" HorizontalAlignment="Left" Width="32" />
+            <custom:UpdateableTextBox Margin="269,112,0,0" x:Name="LoginMinorByte5Ascii" VerticalAlignment="Top" HorizontalAlignment="Left" Width="32" />
+            <Label Content="HEX" Height="24" HorizontalAlignment="Left" Margin="307,84,0,0" Name="label3" VerticalAlignment="Top" Width="32" />
+            <Label Content="ASCII" Height="24" HorizontalAlignment="Left" Margin="307,108,0,0" Name="label4" VerticalAlignment="Top" Width="44" />
+        </Grid>
+        <Grid Margin="0,10,0,0" VerticalAlignment="Bottom">
+            <Button x:Name="CancelButton" Content="Cancel" HorizontalAlignment="Right" Width="75" Height="20" VerticalAlignment="Bottom" IsCancel="True" RenderTransformOrigin="0.921,0.601" Grid.Column="1"/>
+            <Button x:Name="RescanButton" Content="Rescan" HorizontalAlignment="Right" Width="75" IsDefault="True" Margin="0,0,90   ,0"/>
+        </Grid>
+
+    </StackPanel>
+</Window>
