@@ -94,8 +94,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AdministratorLogin.cs" />
-    <Compile Include="UpdateableTextBox.cs" />
-    <Compile Include="HexOnlyTextBox.cs" />
+    <Compile Include="CharacterRestrictedTextBox.cs" />
     <Compile Include="ScannerSettingsWindow.xaml.cs">
       <DependentUpon>ScannerSettingsWindow.xaml</DependentUpon>
     </Compile>

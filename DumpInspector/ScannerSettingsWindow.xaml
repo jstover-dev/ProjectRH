@@ -3,32 +3,22 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:custom="clr-namespace:ProjectRH.DumpInspector"
         Title="Scanner Settings"
-        Width="400" WindowStyle="ToolWindow"
-        Height="Auto" SizeToContent="Height"
+        Width="266" WindowStyle="ToolWindow"
+        Height="164" SizeToContent="Height"
         MinHeight="150"
-        MaxHeight="300" WindowStartupLocation="CenterOwner" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" d:DesignHeight="216">
+        MaxHeight="300" WindowStartupLocation="CenterOwner" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006">
     <StackPanel Margin="10" FlowDirection="LeftToRight" VerticalAlignment="Bottom">
-        <Grid Height="137">
+        <Grid Height="89">
             <Label Content="UADVersion" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="6,8,0,0"/>
             <ComboBox Margin="115,12,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="32" />
-            <custom:UpdateableTextBox x:Name="LoginMajorByteHex" CharacterRestrictionRegex=""  Margin="115,40,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="32" MaxLength="2" />
+            <custom:CharacterRestrictedTextBox x:Name="LoginMajorByteHex" CharacterRestrictionRegex="^[0-9a-fA-F]+$"  Margin="115,40,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="20" MaxLength="2" />
             <Label Content="LoginMajorByte" HorizontalAlignment="Left" Margin="6,36,0,0" VerticalAlignment="Top" />
-            <custom:UpdateableTextBox x:Name="LoginMajorByteAscii" Margin="115,64,211,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="32" MaxLength="1" />
-            <Label Content="HEX" Height="24" HorizontalAlignment="Left" Margin="153,36,0,0" Name="label1" VerticalAlignment="Top" Width="32" />
-            <Label Content="ASCII" Height="24" HorizontalAlignment="Left" Margin="153,60,0,0" Name="label2" VerticalAlignment="Top" Width="44" />
-            <Label Content="LoginMinorBytes" HorizontalAlignment="Left" Margin="6,84,0,0" VerticalAlignment="Top" />
-            <custom:UpdateableTextBox Margin="115,88,0,0" x:Name="LoginMinorByte1Hex" VerticalAlignment="Top" HorizontalAlignment="Left" Width="32" />
-            <custom:UpdateableTextBox Margin="153,88,0,0" x:Name="LoginMinorByte2Hex" VerticalAlignment="Top" HorizontalAlignment="Left" Width="32" />
-            <custom:UpdateableTextBox Margin="193,88,0,0" x:Name="LoginMinorByte3Hex" VerticalAlignment="Top" HorizontalAlignment="Left" Width="32" />
-            <custom:UpdateableTextBox Margin="231,88,0,0" x:Name="LoginMinorByte4Hex" VerticalAlignment="Top" HorizontalAlignment="Left" Width="32" />
-            <custom:UpdateableTextBox Margin="269,88,0,0" x:Name="LoginMinorByte5Hex" VerticalAlignment="Top" HorizontalAlignment="Left" Width="32" />
-            <custom:UpdateableTextBox Margin="115,112,0,0" x:Name="LoginMinorByte1Ascii" VerticalAlignment="Top" HorizontalAlignment="Left" Width="32" />
-            <custom:UpdateableTextBox Margin="153,112,0,0" x:Name="LoginMinorByte2Ascii" VerticalAlignment="Top" HorizontalAlignment="Left" Width="32" />
-            <custom:UpdateableTextBox Margin="193,112,0,0" x:Name="LoginMinorByte3Ascii" VerticalAlignment="Top" HorizontalAlignment="Left" Width="32" />
-            <custom:UpdateableTextBox Margin="231,112,0,0" x:Name="LoginMinorByte4Ascii" VerticalAlignment="Top" HorizontalAlignment="Left" Width="32" />
-            <custom:UpdateableTextBox Margin="269,112,0,0" x:Name="LoginMinorByte5Ascii" VerticalAlignment="Top" HorizontalAlignment="Left" Width="32" />
-            <Label Content="HEX" Height="24" HorizontalAlignment="Left" Margin="307,84,0,0" Name="label3" VerticalAlignment="Top" Width="32" />
-            <Label Content="ASCII" Height="24" HorizontalAlignment="Left" Margin="307,108,0,0" Name="label4" VerticalAlignment="Top" Width="44" />
+            <Label Content="LoginMinorBytes" HorizontalAlignment="Left" Margin="6,62,0,0" VerticalAlignment="Top" />
+            <custom:CharacterRestrictedTextBox Margin="115,63,0,0" x:Name="LoginMinorByte1Hex" CharacterRestrictionRegex="^[0-9a-fA-F]+$" VerticalAlignment="Top" HorizontalAlignment="Left" Width="20" />
+            <custom:CharacterRestrictedTextBox Margin="140,63,0,0" x:Name="LoginMinorByte2Hex" CharacterRestrictionRegex="^[0-9a-fA-F]+$" VerticalAlignment="Top" HorizontalAlignment="Left" Width="20" />
+            <custom:CharacterRestrictedTextBox Margin="165,63,0,0" x:Name="LoginMinorByte3Hex" CharacterRestrictionRegex="^[0-9a-fA-F]+$" VerticalAlignment="Top" HorizontalAlignment="Left" Width="20" RenderTransformOrigin="-0.9,0.556" />
+            <custom:CharacterRestrictedTextBox Margin="190,63,0,0" x:Name="LoginMinorByte4Hex" CharacterRestrictionRegex="^[0-9a-fA-F]+$" VerticalAlignment="Top" HorizontalAlignment="Left" Width="20" RenderTransformOrigin="-1.2,0.556" />
+            <custom:CharacterRestrictedTextBox Margin="215,63,0,0" x:Name="LoginMinorByte5Hex" CharacterRestrictionRegex="^[0-9a-fA-F]+$" VerticalAlignment="Top" HorizontalAlignment="Left" Width="20" RenderTransformOrigin="-1.95,0.5" />
         </Grid>
         <Grid Margin="0,10,0,0" VerticalAlignment="Bottom">
             <Button x:Name="CancelButton" Content="Cancel" HorizontalAlignment="Right" Width="75" Height="20" VerticalAlignment="Bottom" IsCancel="True" RenderTransformOrigin="0.921,0.601" Grid.Column="1"/>

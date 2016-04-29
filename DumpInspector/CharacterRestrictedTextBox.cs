@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Windows.Controls;
 using System.Windows;
+using System.Text.RegularExpressions;
 
 namespace ProjectRH.DumpInspector {
-    public class UpdateableTextBox : TextBox {
+    public class CharacterRestrictedTextBox : TextBox {
 
         public event Action<TextChangedEventArgs> TextChangedByUser;
 
@@ -27,10 +28,16 @@ namespace ProjectRH.DumpInspector {
             }
         }
 
+        protected override void OnPreviewTextInput(System.Windows.Input.TextCompositionEventArgs e) {
+            string regex = (string)GetValue(CharacterRestrictionRegexProperty);
+            e.Handled = !(String.IsNullOrEmpty(regex) || Regex.IsMatch(e.Text, regex));
+            base.OnPreviewTextInput(e);
+        }
+
         public static readonly DependencyProperty CharacterRestrictionRegexProperty = DependencyProperty.RegisterAttached(
             "CharacterRestrictionRegex",
             typeof(string),
-            typeof(UpdateableTextBox),
+            typeof(CharacterRestrictedTextBox),
             new FrameworkPropertyMetadata("")
         );
 
@@ -42,26 +49,16 @@ namespace ProjectRH.DumpInspector {
             return (string)e.GetValue(CharacterRestrictionRegexProperty);
         }
 
-
-        public string ToHex() {
-            if (String.IsNullOrEmpty(this.Text)) {
-                return String.Empty;
-            }
-            return String.Format("{0:x2}", (int)this.Text[0]).ToUpper();
-        }
-
         public string ToAscii() {
             if (String.IsNullOrEmpty(this.Text)) {
                 return String.Empty;
             }
-            string hex = Text.Substring(0, Math.Min(Text.Length, 2));
-            //string text = Convert.ToChar(Convert.ToByte(hex, 16)).ToString();
-            //return Encoding.ASCII.GetString(Encoding.ASCII.GetBytes(Convert.ToByte(hex, 16)));
-
             try {
-                return Encoding.ASCII.GetString(new[] { Convert.ToByte(hex, 16) });
+                string hex = Text.Substring(0, Math.Min(Text.Length, 2));
+                string text = Convert.ToChar(Convert.ToByte(hex, 16)).ToString();
+                return Convert.ToChar(Convert.ToByte(Text.Substring(0, Math.Min(Text.Length, 2)), 16)).ToString();
             } catch (FormatException) {
-                return String.Empty;
+                return "?";
             }
         }
 
