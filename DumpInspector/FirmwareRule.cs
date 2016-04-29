@@ -11,6 +11,22 @@ namespace ProjectRH {
         LoginByteSet
     }
 
+    public static class FirmwareRuleExtensions {
+        public static IFirmwareDefinition ApplyRules(this IFirmwareDefinition fw, string fwversion) {
+            foreach (var rule in FirmwareRule.GetRules().Where(r => r.MatchingFirmwareStrings.Contains(fwversion))) {
+                Console.WriteLine("Applying {0} Rule", rule.FirmwareRuleType);
+                if (rule.FirmwareRuleType == FirmwareRuleType.LoginByteOrder) {
+                    fw.ReverseLoginByte = rule.ReverseLoginByteOrder;
+                }
+                if (rule.FirmwareRuleType == FirmwareRuleType.LoginByteSet) {
+                    fw.LoginMajorByte = rule.LoginMajorByte;
+                    fw.LoginMinorBytes = rule.LoginMinorBytes;
+                }
+            }
+            return fw;
+        }
+    }
+
     public class FirmwareRule {
 
         public FirmwareRuleType FirmwareRuleType { get; private set; }

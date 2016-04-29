@@ -27,14 +27,11 @@ namespace ProjectRH.DumpInspector {
 
         public MainWindow() {
             InitializeComponent();
-            InitializeSettings();
             this.Closed += (s, e) => OnApplicationExit();
             this.Title = String.Format("{0} [{1}]", Title, VersionString);
-        }
-
-        private void InitializeSettings() {
-            settings = new Settings();
-            if (settings.Load() == SettingsResult.LoadError){
+            this.firmware = new FirmwareFile();
+            this.settings = new Settings();
+            if (settings.Load() == SettingsResult.LoadError) {
                 statusMessage.Content = settings.LastException.Message;
             }
         }
@@ -104,7 +101,7 @@ namespace ProjectRH.DumpInspector {
         }
 
         private void ShowScannerSettings(){
-            ScannerSettingsWindow w = new ScannerSettingsWindow(this);
+            ScannerSettingsWindow w = new ScannerSettingsWindow(this, firmware.FirmwareDefinition);
             w.ShowDialog();
         }
 

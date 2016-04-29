@@ -35,7 +35,7 @@ namespace ProjectRH {
         public virtual int PostPadCount                 { get { return 8 - PrePadCount; } }
         public virtual int PrePadCount                  { get { return ReverseLoginByte ? 6 : 4; } }
 
-        public abstract int UADVersion                  { get; protected set; }
+        public abstract int UADVersion                  { get; set; }
         public abstract byte LoginMajorByte             { get; set; }
         public abstract byte[] LoginMinorBytes          { get; set; }
         public abstract bool ReverseLoginByte           { get; set; }
@@ -44,17 +44,18 @@ namespace ProjectRH {
 
     public class DefaultFirmwareDefinition : AbstractFirmwareDefinition {
 
-        public override int UADVersion                  { get; protected set; }
+        public override int UADVersion                  { get; set; }
         public override byte LoginMajorByte             { get; set; }
         public override bool ReverseLoginByte           { get; set; }
         public override byte[] LoginMinorBytes          { get; set; }
 
-        public DefaultFirmwareDefinition(int UADVersion) {
-            this.UADVersion = UADVersion;
+        public DefaultFirmwareDefinition() {
+            this.UADVersion = 9;
             this.ReverseLoginByte = false;
             this.LoginMajorByte = (byte)0xC3;
             this.LoginMinorBytes = new byte[] { 0x5B, 0x5C, 0x5D, 0x5E, 0x5F };
         }
+
     }
 
 
