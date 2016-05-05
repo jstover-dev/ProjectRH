@@ -41,8 +41,7 @@ namespace ProjectRH.DumpInspector {
         }
 
         private void OnApplicationStart() {
-            //this.OpenFile();
-            this.ShowScannerSettings();
+            this.OpenFile();
         }
 
         private OpenFileDialog ShowFileOpenDialog(){
@@ -100,9 +99,12 @@ namespace ProjectRH.DumpInspector {
             dataGrid.Items.Refresh();
         }
 
-        private void ShowScannerSettings(){
+        private void ShowScannerSettings() {
             ScannerSettingsWindow w = new ScannerSettingsWindow(this, firmware.FirmwareDefinition);
-            w.ShowDialog();
+            if (w.ShowDialog() == true) {
+                dataGrid.ItemsSource = firmware.GetPasswords(w.FirmwareDefinition);
+                dataGrid.Items.Refresh();
+            }
         }
 
         private void EditPassword(AdministratorLogin pw) {
