@@ -9,9 +9,10 @@ namespace ProjectRH.DumpInspector {
 
     public class FirmwareFile {
 
-        public string Filename { get; private set; }
+        public string Filename          { get; private set; }
+        public String FirmwareString    { get; private set; }
+
         public Int64 Length { get { return this.Data.Length; } }
-        public String FirmwareString { get; private set; }
 
         private IFirmwareDefinition _FirmwareDefinition;
         public IFirmwareDefinition FirmwareDefinition {
@@ -39,8 +40,12 @@ namespace ProjectRH.DumpInspector {
         }
 
         public List<AdministratorLogin> GetPasswords(IFirmwareDefinition fw = null) {
-            if (fw == null){ fw = this.FirmwareDefinition; }
-            return Scanner.GetPasswords(fw.ApplyRules(FirmwareString));
+            if (String.IsNullOrEmpty(this.Filename)) {
+                return new List<AdministratorLogin>();
+            } 
+            return Scanner.GetPasswords(
+                (fw ?? this.FirmwareDefinition).ApplyRules(this.FirmwareString)
+            );
         }
 
         public void WriteFile(String filename) {
