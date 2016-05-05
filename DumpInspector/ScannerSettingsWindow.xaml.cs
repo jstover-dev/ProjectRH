@@ -19,21 +19,38 @@ namespace ProjectRH.DumpInspector {
     public partial class ScannerSettingsWindow : Window {
 
         public IFirmwareDefinition FirmwareDefinition { get; private set; }
+        public IEnumerable<UADVersion> UADVersions { get; private set; }
 
         public ScannerSettingsWindow(Window owner, IFirmwareDefinition fwd) {
             InitializeComponent();
             if (owner != null) { this.Owner = owner; }
+            this.DataContext = this; 
+
             this.FirmwareDefinition = fwd;
-            this.DataContext = this;
+            this.UADVersions = UADVersion.KnownVersions;
 
-            this.UADVersionComboBox.ItemsSource = UADVersion.KnownVersions;
-            this.UADVersionComboBox.DisplayMemberPath = "Key";
-            this.UADVersionComboBox.SelectedValuePath = "Value";
-            this.UADVersionComboBox.SelectedIndex = UADVersionComboBox.Items.Count;
-
-            //this.UADVersionComboBox.Items = UADVersion.GetAllKnownVersions().Select(v => v.VersionNumber);
         }
 
+        private void RescanButton_Click(object sender, RoutedEventArgs e) {
+            this.DialogResult = true;
+        }
+
+    }
+
+
+    public class ComboBoxToLongestItemWidthConverter : IValueConverter {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture) {
+
+            if (value is IEnumerable<UADVersion>) {
+                return (value as IEnumerable<UADVersion>).Max(u => u.ToString().Length) * 12;
+            } else {
+                return value.ToString().Length * 12;
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture) {
+            throw new NotImplementedException();
+        }
     }
 
 }
