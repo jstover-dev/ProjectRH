@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Globalization;
 
 namespace ProjectRH.DumpInspector {
     /// <summary>
@@ -17,16 +18,22 @@ namespace ProjectRH.DumpInspector {
     /// </summary>
     public partial class ScannerSettingsWindow : Window {
 
-        public ScannerSettingsWindow(Window owner = null, IFirmwareDefinition fwd) {
+        public IFirmwareDefinition FirmwareDefinition { get; private set; }
+
+        public ScannerSettingsWindow(Window owner, IFirmwareDefinition fwd) {
             InitializeComponent();
             if (owner != null) { this.Owner = owner; }
-            this.LoginMajorByteHex.Text = String.Format("{0:x2}", fwd.LoginMajorByte).ToUpper();
-            this.LoginMinorByte1Hex.Text = String.Format("{0:x2}", fwd.LoginMinorBytes[0]).ToUpper();
-            this.LoginMinorByte2Hex.Text = String.Format("{0:x2}", fwd.LoginMinorBytes[1]).ToUpper();
-            this.LoginMinorByte3Hex.Text = String.Format("{0:x2}", fwd.LoginMinorBytes[2]).ToUpper();
-            this.LoginMinorByte4Hex.Text = String.Format("{0:x2}", fwd.LoginMinorBytes[3]).ToUpper();
-            this.LoginMinorByte5Hex.Text = String.Format("{0:x2}", fwd.LoginMinorBytes[4]).ToUpper();
+            this.FirmwareDefinition = fwd;
+            this.DataContext = this;
+
+            this.UADVersionComboBox.ItemsSource = UADVersion.KnownVersions;
+            this.UADVersionComboBox.DisplayMemberPath = "Key";
+            this.UADVersionComboBox.SelectedValuePath = "Value";
+            this.UADVersionComboBox.SelectedIndex = UADVersionComboBox.Items.Count;
+
+            //this.UADVersionComboBox.Items = UADVersion.GetAllKnownVersions().Select(v => v.VersionNumber);
         }
 
-   }
+    }
+
 }

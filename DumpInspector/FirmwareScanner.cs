@@ -28,13 +28,13 @@ namespace ProjectRH {
             return sb.ToString();
         }
 
-        public int GetUADVersion() {
+        public UADVersion GetUADVersion() {
             for (int i = 0; i < Data.Length - 3; i++) {
                 if (Data[i] == (byte)'U' && Data[i + 1] == (byte)'A' && Data[i + 2] == (byte)'D') {
-                    return int.Parse(((char)Data[i + 3]).ToString());
+                    return UADVersion.Get(int.Parse(((char)Data[i + 3]).ToString()));
                 }
             }
-            return 0;
+            return UADVersion.Default;
         }
 
 

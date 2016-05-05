@@ -12,7 +12,7 @@ namespace ProjectRH {
         int AdministratorPasswordLength { get; }
         int PrePadCount                 { get; }
         int PostPadCount                { get; }
-        int UADVersion                  { get; }
+        UADVersion UADVersion           { get; }
         bool EncryptedPassword          { get; }
         bool EncryptedUsername          { get; }
         byte PasswordPadByte            { get; }
@@ -28,14 +28,14 @@ namespace ProjectRH {
         public virtual int UsernameLength               { get { return 0x20; } }
         public virtual int SupervisorPasswordLength     { get { return 0x20; } }
         public virtual int AdministratorPasswordLength  { get { return 0x40; } }
-        public virtual bool EncryptedPassword           { get { return true; } }
-        public virtual bool EncryptedUsername           { get { return UADVersion == 9; } }
+        public virtual bool EncryptedPassword           { get { return UADVersion.EncryptedPassword; } }
+        public virtual bool EncryptedUsername           { get { return UADVersion.EncryptedUsername; } }
         public virtual byte PasswordPadByte             { get { return EncryptedPassword ? (byte)0x72 : (byte)0; } }
         public virtual byte UsernamePadByte             { get { return EncryptedUsername ? (byte)0x72 : (byte)0; } }
         public virtual int PostPadCount                 { get { return 8 - PrePadCount; } }
         public virtual int PrePadCount                  { get { return ReverseLoginByte ? 6 : 4; } }
 
-        public abstract int UADVersion                  { get; set; }
+        public abstract UADVersion UADVersion           { get; set; }
         public abstract byte LoginMajorByte             { get; set; }
         public abstract byte[] LoginMinorBytes          { get; set; }
         public abstract bool ReverseLoginByte           { get; set; }
@@ -44,13 +44,13 @@ namespace ProjectRH {
 
     public class DefaultFirmwareDefinition : AbstractFirmwareDefinition {
 
-        public override int UADVersion                  { get; set; }
+        public override UADVersion UADVersion           { get; set; }
         public override byte LoginMajorByte             { get; set; }
         public override bool ReverseLoginByte           { get; set; }
         public override byte[] LoginMinorBytes          { get; set; }
 
         public DefaultFirmwareDefinition() {
-            this.UADVersion = 9;
+            this.UADVersion = UADVersion.Default;
             this.ReverseLoginByte = false;
             this.LoginMajorByte = (byte)0xC3;
             this.LoginMinorBytes = new byte[] { 0x5B, 0x5C, 0x5D, 0x5E, 0x5F };
