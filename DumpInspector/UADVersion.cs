@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
-namespace ProjectRH {
+namespace ProjectRH.DumpInspector {
 
-    public class UADVersion {
+    public class UadVersion {
 
         public int VersionNumber      { get; private set; }
 
@@ -13,33 +12,33 @@ namespace ProjectRH {
 
         public bool EncryptedUsername { get; private set; }
 
-        public static readonly UADVersion Default = new UADVersion() {
+        public static readonly UadVersion Default = new UadVersion() {
             VersionNumber = 0,
             EncryptedPassword = true,
             EncryptedUsername = false
         };
 
-        public static readonly IList<UADVersion> KnownVersions = new List<UADVersion>() {
+        public static readonly IList<UadVersion> KnownVersions = new List<UadVersion>() {
             Default,
-            new UADVersion() {
+            new UadVersion() {
                 VersionNumber = 6,
                 EncryptedPassword = true,
                 EncryptedUsername = false,
             },
-            new UADVersion() {
+            new UadVersion() {
                 VersionNumber = 7,
                 EncryptedPassword = true,
                 EncryptedUsername = false,
             },
-            new UADVersion() {
+            new UadVersion() {
                 VersionNumber = 9,
                 EncryptedUsername = true,
                 EncryptedPassword = true
             }
         };
             
-        public static UADVersion Get(int VersionNumber) {
-            return KnownVersions.FirstOrDefault(u => u.VersionNumber == VersionNumber) ?? Default;
+        public static UadVersion Get(int versionNumber) {
+            return KnownVersions.FirstOrDefault(u => u.VersionNumber == versionNumber) ?? Default;
         }
 
         public override string ToString() {

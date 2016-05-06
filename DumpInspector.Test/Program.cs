@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
-using ProjectRH;
-using System.Diagnostics;
+using System.Linq;
 
 namespace DumpInspector.Test {
 
@@ -20,17 +17,15 @@ namespace DumpInspector.Test {
     class Program {
 
         private static IEnumerable<DataFile> GetFirmwareDumps(string path) {
-            foreach( string f in Directory.GetFiles(path, "*.nv", SearchOption.TopDirectoryOnly)) {
-                yield return new DataFile(f);
-            }
+            return Directory.GetFiles(path, "*.nv", SearchOption.TopDirectoryOnly).Select(f => new DataFile(f));
         }
-        
-        static void Main(string[] args) {
+
+        static void Main() {
 
             Console.WriteLine("*** DumpInspector.Test ***");
             foreach (var f in GetFirmwareDumps(@"C:\Users\josh\Desktop\NV")) {
-           
-                FirmwareScanner scanner = new FirmwareScanner(f.Data);
+                Console.WriteLine(f);
+                //FirmwareScanner scanner = new FirmwareScanner(f.Data);
                 /*
                 foreach (IFirmwareDefinition fw in Firmware.GetFirmwareDefinitions()) {
                     if (fw.ValidFirmwareStrings.Contains(scanner.GetFirmwareString())) {

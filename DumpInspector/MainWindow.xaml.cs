@@ -1,16 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Microsoft.Win32;
 
 namespace ProjectRH.DumpInspector {
@@ -18,56 +9,58 @@ namespace ProjectRH.DumpInspector {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window {
+    public partial class MainWindow {
 
-        private FirmwareFile firmware { get; set; }
-        private Settings settings { get; set; }
+        private FirmwareFile FirmwareFile { get; set; }
+        private Settings Settings { get; set; }
 
         private static readonly string VersionString = "1.04";
 
         public MainWindow() {
             InitializeComponent();
-            this.Closed += (s, e) => OnApplicationExit();
-            this.Title = String.Format("{0} [{1}]", Title, VersionString);
-            this.firmware = new FirmwareFile();
-            this.settings = new Settings();
-            if (settings.Load() == SettingsResult.LoadError) {
-                statusMessage.Content = settings.LastException.Message;
+            Closed += (s, e) => OnApplicationExit();
+            Title = String.Format("{0} [{1}]", Title, VersionString);
+            FirmwareFile = new FirmwareFile();
+            Settings = new Settings();
+            if (Settings.Load() == SettingsResult.LoadError) {
+                StatusMessage.Content = Settings.LastException.Message;
             }
         }
 
         private void OnApplicationExit() {
-            settings.Save();
+            Settings.Save();
         }
 
         private void OnApplicationStart() {
-            this.OpenFile();
+            OpenFile();
         }
 
         private OpenFileDialog ShowFileOpenDialog(){
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "NVRAM dump (*.nv, *.nvram)|*.nv;*.nvram|All Files (*.*)|*.*";
-            ofd.InitialDirectory = System.IO.Directory.Exists(settings.LastOpenPath) ? settings.LastOpenPath : null ;
-            bool success = false;
+            OpenFileDialog ofd = new OpenFileDialog {
+                Filter = "NVRAM dump (*.nv, *.nvram)|*.nv;*.nvram|All Files (*.*)|*.*",
+                InitialDirectory = System.IO.Directory.Exists(Settings.LastOpenPath) ? Settings.LastOpenPath : null
+            };
+            bool success;
             try {
-                success = ofd.ShowDialog(this) ?? false;
+                success = (bool) ofd.ShowDialog(this);
             } catch (System.ComponentModel.Win32Exception) {
                 ofd.InitialDirectory = null;
-                success = ofd.ShowDialog(this) ?? false;
+                success = (bool) ofd.ShowDialog(this);
             }
             return success ? ofd : null ;
         }
 
         private SaveFileDialog ShowFileExportDialog() {
-            SaveFileDialog sfd = new SaveFileDialog();
-            sfd.Filter = "NVRAM Dump (*.nv)|*.nv";
-            sfd.InitialDirectory = System.IO.Directory.Exists(settings.LastExportPath) ? settings.LastExportPath : null ;
-            bool success = false;
+            SaveFileDialog sfd = new SaveFileDialog {
+                Filter = "NVRAM Dump (*.nv)|*.nv",
+                InitialDirectory = System.IO.Directory.Exists(Settings.LastExportPath) ? Settings.LastExportPath : null
+            };
+            bool success;
             try {
-                success = sfd.ShowDialog(this) ?? false;
+                success = (bool) sfd.ShowDialog(this);
             } catch (System.ComponentModel.Win32Exception) {
                 sfd.InitialDirectory = null;
-                success = sfd.ShowDialog(this) ?? false;
+                success = (bool) sfd.ShowDialog(this);
             }
             return success ? sfd : null;
         }
@@ -75,35 +68,35 @@ namespace ProjectRH.DumpInspector {
         private void OpenFile() {
             OpenFileDialog ofd;
             if ((ofd = ShowFileOpenDialog()) != null) {
-                settings.LastOpenPath = System.IO.Path.GetDirectoryName(ofd.FileName);
-                this.firmware = new FirmwareFile(ofd.FileName);
-                this.statusMessage.Content = firmware.Length.AsHumanFileSize();
-                this.firmwareMessage.Content = String.Format("{0}", firmware.FirmwareString);
-                dataGrid.ItemsSource = firmware.GetPasswords();
-                dataGrid.Items.Refresh();
+                Settings.LastOpenPath = System.IO.Path.GetDirectoryName(ofd.FileName);
+                FirmwareFile = new FirmwareFile(ofd.FileName);
+                StatusMessage.Content = FirmwareFile.Length.AsHumanFileSize();
+                FirmwareMessage.Content = String.Format("{0}", FirmwareFile.FirmwareString);
+                DataGrid.ItemsSource = FirmwareFile.GetPasswords();
+                DataGrid.Items.Refresh();
             }
         }
 
         private void ExportFile() {
             SaveFileDialog sfd;
             if ((sfd = ShowFileExportDialog()) != null) {
-                settings.LastExportPath = System.IO.Path.GetDirectoryName(sfd.FileName);
-                firmware.WriteFile(sfd.FileName);
+                Settings.LastExportPath = System.IO.Path.GetDirectoryName(sfd.FileName);
+                FirmwareFile.WriteFile(sfd.FileName);
             }
         }
 
         private void ClearPasswords() {
-            foreach (AdministratorLogin x in dataGrid.Items) {
+            foreach (AdministratorLogin x in DataGrid.Items) {
                 x.Password = "";
             }
-            dataGrid.Items.Refresh();
+            DataGrid.Items.Refresh();
         }
 
         private void ShowScannerSettings() {
-            ScannerSettingsWindow w = new ScannerSettingsWindow(this, firmware.FirmwareDefinition);
+            ScannerSettingsWindow w = new ScannerSettingsWindow(this, FirmwareFile.FirmwareDefinition);
             if (w.ShowDialog() == true) {
-                dataGrid.ItemsSource = firmware.GetPasswords(w.FirmwareDefinition);
-                dataGrid.Items.Refresh();
+                DataGrid.ItemsSource = FirmwareFile.GetPasswords(w.FirmwareDefinition);
+                DataGrid.Items.Refresh();
             }
         }
 
@@ -112,7 +105,7 @@ namespace ProjectRH.DumpInspector {
             if (editor.ShowDialog()??false) {
                 pw.Username = editor.Username.Text;
                 pw.Password = editor.Password.Text;
-                dataGrid.Items.Refresh();
+                DataGrid.Items.Refresh();
             }
         }
 
@@ -121,12 +114,12 @@ namespace ProjectRH.DumpInspector {
 
         // File -> Open
         private void OpenCommand_Executed(object sender, ExecutedRoutedEventArgs e) {
-            this.OpenFile();
+            OpenFile();
         }
 
         // File -> Export
         private void ExportCommand_Executed(object sender, ExecutedRoutedEventArgs e) {
-            this.ExportFile();
+            ExportFile();
         }
 
         // File -> Exit
@@ -136,17 +129,17 @@ namespace ProjectRH.DumpInspector {
 
         // Edit -> Clear Passwords
         private void ClearCommand_Executed(object sender, ExecutedRoutedEventArgs e) {
-            this.ClearPasswords();
+            ClearPasswords();
         }
 
         // Edit -> Scanner Settings
         private void ScannerSettingsCommand_Executed(object sender, ExecutedRoutedEventArgs e) {
-            this.ShowScannerSettings();
+            ShowScannerSettings();
         }
 
         // Password Edit Button
         private void EditPassword(object sender, RoutedEventArgs e) {
-            this.EditPassword((sender as Button).DataContext as AdministratorLogin);
+            EditPassword(((Button)sender).DataContext as AdministratorLogin);
         }
 
 
@@ -154,14 +147,14 @@ namespace ProjectRH.DumpInspector {
 
         // Open file on application start
         private void Window_Loaded(object sender, RoutedEventArgs e) {
-            this.OnApplicationStart();
+            OnApplicationStart();
         }
 
         // Adjust the datagrid after auto column generation
         private void dataGrid_AutoGeneratedColumns(object sender, EventArgs e) {
-            dataGrid.Columns[0].DisplayIndex = dataGrid.Columns.Count - 1;
-            dataGrid.Columns[1].Width = 10;
-            dataGrid.Columns[2].Width = DataGridLength.Auto;
+            DataGrid.Columns[0].DisplayIndex = DataGrid.Columns.Count - 1;
+            DataGrid.Columns[1].Width = 10;
+            DataGrid.Columns[2].Width = DataGridLength.Auto;
         }
 
 
@@ -169,7 +162,7 @@ namespace ProjectRH.DumpInspector {
 
         // Enable command if a file has been opened
         private void ExecuteIfFileOpen(object sender, CanExecuteRoutedEventArgs e) {
-            e.CanExecute = (firmware != null);
+            e.CanExecute = FirmwareFile != null;
         }
 
         // disable command
@@ -177,10 +170,11 @@ namespace ProjectRH.DumpInspector {
             e.CanExecute = false;
         }
 
+/*
         private void ExecutionEnabled(object sender, CanExecuteRoutedEventArgs e) {
             e.CanExecute = true;
         }
-
+*/
     }
 
 

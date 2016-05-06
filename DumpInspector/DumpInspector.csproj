@@ -104,7 +104,7 @@
     <Compile Include="FirmwareScanner.cs" />
     <Compile Include="FirmwareTools.cs" />
     <Compile Include="Settings.cs" />
-    <Compile Include="UADVersion.cs" />
+    <Compile Include="UadVersion.cs" />
     <Page Include="ScannerSettingsWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

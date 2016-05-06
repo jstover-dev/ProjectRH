@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
-namespace ProjectRH {
+namespace ProjectRH.DumpInspector {
 
     public static class FirmwareTools {
 
         public static string HexConv(string s) {
-            return new String(s.Select(c => (char)HexConv((byte)c)).ToArray());
+            return new String(s.Select(c => HexConv((byte)c)).ToArray());
         }
 
         public static  char HexConv(byte b) {

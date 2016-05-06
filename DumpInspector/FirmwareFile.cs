@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
-using ProjectRH;
 
 namespace ProjectRH.DumpInspector {
 
@@ -12,12 +9,12 @@ namespace ProjectRH.DumpInspector {
         public string Filename          { get; private set; }
         public String FirmwareString    { get; private set; }
 
-        public Int64 Length { get { return this.Data.Length; } }
+        public Int64 Length { get { return Data.Length; } }
 
-        private IFirmwareDefinition _FirmwareDefinition;
+        private IFirmwareDefinition _firmwareDefinition;
         public IFirmwareDefinition FirmwareDefinition {
-            get { return _FirmwareDefinition ?? new DefaultFirmwareDefinition(); }
-            set { _FirmwareDefinition = value; }
+            get { return _firmwareDefinition ?? new DefaultFirmwareDefinition(); }
+            set { _firmwareDefinition = value; }
         }
         
         private FirmwareScanner Scanner { get; set; }
@@ -25,26 +22,26 @@ namespace ProjectRH.DumpInspector {
 
         public FirmwareFile(string filename = null) {
             if (!String.IsNullOrEmpty(filename)) {
-                this.Open(filename);
+                Open(filename);
             }
         }
 
         public void Open(string filename) {
-            this.Filename = Path.GetFileName(filename);
-            this.Data = File.ReadAllBytes(filename);
-            this.Scanner = new FirmwareScanner(Data);
-            this.FirmwareString = Scanner.GetFirmwareString();
-            this.FirmwareDefinition = new DefaultFirmwareDefinition() {
-                UADVersion = Scanner.GetUADVersion()
+            Filename = Path.GetFileName(filename);
+            Data = File.ReadAllBytes(filename);
+            Scanner = new FirmwareScanner(Data);
+            FirmwareString = Scanner.GetFirmwareString();
+            FirmwareDefinition = new DefaultFirmwareDefinition() {
+                UadVersion = Scanner.GetUadVersion()
             };
         }
 
         public List<AdministratorLogin> GetPasswords(IFirmwareDefinition fw = null) {
-            if (String.IsNullOrEmpty(this.Filename)) {
+            if (String.IsNullOrEmpty(Filename)) {
                 return new List<AdministratorLogin>();
             } 
             return Scanner.GetPasswords(
-                (fw ?? this.FirmwareDefinition).ApplyRules(this.FirmwareString)
+                (fw ?? FirmwareDefinition).ApplyRules(FirmwareString)
             );
         }
 

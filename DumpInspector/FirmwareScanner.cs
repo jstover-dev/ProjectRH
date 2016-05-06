@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using ProjectRH;
-using System.Diagnostics;
 
-namespace ProjectRH {
+namespace ProjectRH.DumpInspector {
 
     public enum AdminIdLookupDirection { Behind=-1, Ahead=1 }
 
@@ -28,13 +25,13 @@ namespace ProjectRH {
             return sb.ToString();
         }
 
-        public UADVersion GetUADVersion() {
+        public UadVersion GetUadVersion() {
             for (int i = 0; i < Data.Length - 3; i++) {
                 if (Data[i] == (byte)'U' && Data[i + 1] == (byte)'A' && Data[i + 2] == (byte)'D') {
-                    return UADVersion.Get(int.Parse(((char)Data[i + 3]).ToString()));
+                    return UadVersion.Get(int.Parse(((char)Data[i + 3]).ToString()));
                 }
             }
-            return UADVersion.Default;
+            return UadVersion.Default;
         }
 
 
@@ -52,21 +49,17 @@ namespace ProjectRH {
         public List<AdministratorLogin> GetPasswords(IFirmwareDefinition fw) {
             List<AdministratorLogin> results = new List<AdministratorLogin>();
 
-            byte adminByte;
-            int currentAdmin;
-            string currentUsername;
-            string currentPassword;
-
             for (int i = 1; i < Data.Length; i++) {
                 if (Data[i] == fw.LoginMajorByte) {
-
+                    byte adminByte;
                     if (fw.ReverseLoginByte) {
                         adminByte = Data[i - 1];
                     } else {
                         adminByte = Data[i + 1];
                         i++;
                     }
-                    
+
+                    int currentAdmin;
                     if ((currentAdmin = Array.IndexOf(fw.LoginMinorBytes, adminByte)) < 0) {
                         continue;
                     }
@@ -74,9 +67,10 @@ namespace ProjectRH {
                     i += fw.PrePadCount;
                     i++;
 
-                    currentUsername = ReadString(i, fw.UsernameLength, fw.UsernamePadByte, fw.EncryptedUsername);
+                    var currentUsername = ReadString(i, fw.UsernameLength, fw.UsernamePadByte, fw.EncryptedUsername);
                     i += fw.UsernameLength;
 
+                    string currentPassword;
                     if (currentAdmin == 0) {
                         currentPassword = ReadString(i, fw.SupervisorPasswordLength, fw.PasswordPadByte, true);
                         i += fw.SupervisorPasswordLength;
@@ -86,7 +80,7 @@ namespace ProjectRH {
                     }
 
                     results.Add(new AdministratorLogin() {
-                        ID = currentAdmin,
+                        UserId = currentAdmin,
                         Username = currentUsername,
                         Password = currentPassword
                     });

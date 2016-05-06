@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace ProjectRH {
+﻿namespace ProjectRH.DumpInspector {
 
     public interface IFirmwareDefinition {
         int AdministratorCount          { get; }
@@ -12,11 +7,11 @@ namespace ProjectRH {
         int AdministratorPasswordLength { get; }
         int PrePadCount                 { get; }
         int PostPadCount                { get; }
-        UADVersion UADVersion           { get; }
         bool EncryptedPassword          { get; }
         bool EncryptedUsername          { get; }
         byte PasswordPadByte            { get; }
         byte UsernamePadByte            { get; }
+        UadVersion UadVersion           { get; set; }
         bool ReverseLoginByte           { get; set; }
         byte LoginMajorByte             { get; set; }
         byte[] LoginMinorBytes          { get; set; }
@@ -28,32 +23,32 @@ namespace ProjectRH {
         public virtual int UsernameLength               { get { return 0x20; } }
         public virtual int SupervisorPasswordLength     { get { return 0x20; } }
         public virtual int AdministratorPasswordLength  { get { return 0x40; } }
-        public virtual bool EncryptedPassword           { get { return UADVersion.EncryptedPassword; } }
-        public virtual bool EncryptedUsername           { get { return UADVersion.EncryptedUsername; } }
+        public virtual bool EncryptedPassword           { get { return UadVersion.EncryptedPassword; } }
+        public virtual bool EncryptedUsername           { get { return UadVersion.EncryptedUsername; } }
         public virtual byte PasswordPadByte             { get { return EncryptedPassword ? (byte)0x72 : (byte)0; } }
         public virtual byte UsernamePadByte             { get { return EncryptedUsername ? (byte)0x72 : (byte)0; } }
         public virtual int PostPadCount                 { get { return 8 - PrePadCount; } }
         public virtual int PrePadCount                  { get { return ReverseLoginByte ? 6 : 4; } }
 
-        public abstract UADVersion UADVersion           { get; set; }
+        public abstract UadVersion UadVersion           { get; set; }
         public abstract byte LoginMajorByte             { get; set; }
         public abstract byte[] LoginMinorBytes          { get; set; }
         public abstract bool ReverseLoginByte           { get; set; }
     }
 
 
-    public class DefaultFirmwareDefinition : AbstractFirmwareDefinition {
+    public sealed class DefaultFirmwareDefinition : AbstractFirmwareDefinition {
 
-        public override UADVersion UADVersion           { get; set; }
+        public override UadVersion UadVersion           { get; set; }
         public override byte LoginMajorByte             { get; set; }
         public override bool ReverseLoginByte           { get; set; }
         public override byte[] LoginMinorBytes          { get; set; }
 
         public DefaultFirmwareDefinition() {
-            this.UADVersion = UADVersion.Default;
-            this.ReverseLoginByte = false;
-            this.LoginMajorByte = (byte)0xC3;
-            this.LoginMinorBytes = new byte[] { 0x5B, 0x5C, 0x5D, 0x5E, 0x5F };
+            UadVersion = UadVersion.Default;
+            ReverseLoginByte = false;
+            LoginMajorByte = 0xC3;
+            LoginMinorBytes = new byte[] { 0x5B, 0x5C, 0x5D, 0x5E, 0x5F };
         }
 
     }

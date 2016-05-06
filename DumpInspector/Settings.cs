@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
@@ -10,7 +7,7 @@ using System.Reflection;
 namespace ProjectRH.DumpInspector {
 
     public enum SettingsResult {
-        LoadOK, LoadDefaults, LoadError, SaveOK, SaveError
+        Loaded, LoadDefaults, LoadError, Saved, SaveError
     }
     
     [Serializable]
@@ -24,7 +21,7 @@ namespace ProjectRH.DumpInspector {
         public Exception LastException;
 
         [NonSerialized]
-        private string Filename;
+        private readonly string _filename;
 
 
         public Settings() {
@@ -33,36 +30,31 @@ namespace ProjectRH.DumpInspector {
                 "ProjectRH"
             );
             Directory.CreateDirectory(appDataDir);
-            this.Filename = Path.Combine(
+            _filename = Path.Combine(
                 appDataDir,
                 Assembly.GetEntryAssembly().GetName().Name+".settings"
             );
         }
 
         public void Save() {
-            IFormatter formatter;
-            Stream stream;
-            formatter = new BinaryFormatter();
-            stream = new FileStream(Filename, FileMode.Create, FileAccess.Write, FileShare.None);
+            IFormatter formatter = new BinaryFormatter();
+            Stream stream = new FileStream(_filename, FileMode.Create, FileAccess.Write, FileShare.None);
             formatter.Serialize(stream, this);
             stream.Close();
         }
 
         public SettingsResult Load() {
-            Settings settings;
-            IFormatter formatter;
-            Stream stream;
             try {
-                formatter = new BinaryFormatter();
-                stream = new FileStream(Filename, FileMode.Open, FileAccess.Read, FileShare.Read);
-                settings = (Settings)formatter.Deserialize(stream);
+                IFormatter formatter = new BinaryFormatter();
+                Stream stream = new FileStream(_filename, FileMode.Open, FileAccess.Read, FileShare.Read);
+                var settings = (Settings)formatter.Deserialize(stream);
                 stream.Close();
-                this.LastOpenPath = settings.LastOpenPath;
-                this.LastExportPath = settings.LastExportPath;
-                return SettingsResult.LoadOK;
+                LastOpenPath = settings.LastOpenPath;
+                LastExportPath = settings.LastExportPath;
+                return SettingsResult.Loaded;
 
             } catch (FileNotFoundException) {
-                return SettingsResult.LoadOK;
+                return SettingsResult.Loaded;
             } catch (Exception e) {
                 LastException = e;
                 return SettingsResult.LoadError;

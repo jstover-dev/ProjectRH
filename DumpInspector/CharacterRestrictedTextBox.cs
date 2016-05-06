@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Controls;
 using System.Windows;
 using System.Text.RegularExpressions;
@@ -11,7 +8,7 @@ namespace ProjectRH.DumpInspector {
 
         public event Action<TextChangedEventArgs> TextChangedByUser;
 
-        private bool _isTextUpdating = false;
+        private bool _isTextUpdating;
         public new string Text {
             set {
                 _isTextUpdating = true;
@@ -50,12 +47,12 @@ namespace ProjectRH.DumpInspector {
         }
 
         public string ToAscii() {
-            if (String.IsNullOrEmpty(this.Text)) {
+            if (String.IsNullOrEmpty(Text)) {
                 return String.Empty;
             }
             try {
-                string hex = Text.Substring(0, Math.Min(Text.Length, 2));
-                string text = Convert.ToChar(Convert.ToByte(hex, 16)).ToString();
+                //string hex = Text.Substring(0, Math.Min(Text.Length, 2));
+                //string text = Convert.ToChar(Convert.ToByte(hex, 16)).ToString();
                 return Convert.ToChar(Convert.ToByte(Text.Substring(0, Math.Min(Text.Length, 2)), 16)).ToString();
             } catch (FormatException) {
                 return "?";
