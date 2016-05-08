@@ -20,17 +20,17 @@ namespace ProjectRH.DumpInspector {
 
         public static readonly IList<UadVersion> KnownVersions = new List<UadVersion>() {
             Default,
-            new UadVersion() {
+            new UadVersion {
                 VersionNumber = 6,
                 EncryptedPassword = true,
                 EncryptedUsername = false,
             },
-            new UadVersion() {
+            new UadVersion {
                 VersionNumber = 7,
                 EncryptedPassword = true,
                 EncryptedUsername = false,
             },
-            new UadVersion() {
+            new UadVersion {
                 VersionNumber = 9,
                 EncryptedUsername = true,
                 EncryptedPassword = true
@@ -42,11 +42,7 @@ namespace ProjectRH.DumpInspector {
         }
 
         public override string ToString() {
-            if (VersionNumber == 0)
-                return "Custom";
-            else
-                return String.Format("UAD{0}", VersionNumber);
+            return VersionNumber == 0 ? "Custom" : string.Format("UAD{0}", VersionNumber);
         }
-
     }
 }
