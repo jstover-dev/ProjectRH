@@ -19,7 +19,7 @@
 
 
     public abstract class AbstractFirmwareDefinition : IFirmwareDefinition {
-        public virtual int AdministratorCount { get { return 5; } }
+        public virtual int AdministratorCount           { get { return 5; } }
         public virtual int UsernameLength               { get { return 0x20; } }
         public virtual int SupervisorPasswordLength     { get { return 0x20; } }
         public virtual int AdministratorPasswordLength  { get { return 0x40; } }
@@ -28,34 +28,20 @@
         public virtual byte PasswordPadByte             { get { return EncryptedPassword ? (byte)0x72 : (byte)0; } }
         public virtual byte UsernamePadByte             { get { return EncryptedUsername ? (byte)0x72 : (byte)0; } }
         public virtual int PostPadCount                 { get { return 8 - PrePadCount; } }
-        public virtual int PrePadCount                  { get { return ReverseLoginByte ? 6 : 4; } }
+        public virtual int PrePadCount                  { get { return ReverseLoginByte ? 6 : 4;} }
 
-        public abstract UadVersion UadVersion           { get; set; }
-        public abstract byte LoginMajorByte             { get; set; }
-        public abstract byte[] LoginMinorBytes          { get; set; }
-        public abstract bool ReverseLoginByte           { get; set; }
+        public virtual UadVersion UadVersion            { get; set; }
+        public virtual byte LoginMajorByte              { get; set; }
+        public virtual byte[] LoginMinorBytes           { get; set; }
+        public virtual bool ReverseLoginByte            { get; set; }
     }
 
 
     public sealed class DefaultFirmwareDefinition : AbstractFirmwareDefinition {
-
-        public override UadVersion UadVersion           { get; set; }
-        public override byte LoginMajorByte             { get; set; }
-        public override bool ReverseLoginByte           { get; set; }
-        public override byte[] LoginMinorBytes          { get; set; }
-
         public DefaultFirmwareDefinition() {
-            UadVersion = UadVersion.Default;
-            ReverseLoginByte = false;
-            LoginMajorByte = 0xC3;
-            LoginMinorBytes = new byte[] { 0x5B, 0x5C, 0x5D, 0x5E, 0x5F };
+            this.ApplyRule(FirmwareRule.Default);
         }
-
     }
-
-
-
-
 
 }
 
