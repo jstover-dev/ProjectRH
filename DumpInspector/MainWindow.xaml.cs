@@ -14,7 +14,7 @@ namespace ProjectRH.DumpInspector {
         private FirmwareFile FirmwareFile { get; set; }
         private Settings Settings { get; set; }
 
-        private static readonly string VersionString = "1.05*";
+        private static readonly string VersionString = "1.05";
 
         public MainWindow() {
             InitializeComponent();
