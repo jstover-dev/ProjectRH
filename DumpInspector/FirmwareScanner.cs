@@ -15,7 +15,7 @@ namespace ProjectRH.DumpInspector {
         }
 
         public string GetFirmwareString() {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             int cursor = Array.IndexOf(Data, (byte)'(') + 1;
             int maxLength = 32;
             while (cursor<Data.Length && Data[cursor] != (byte)')' && (--maxLength > 0)) {
@@ -36,7 +36,7 @@ namespace ProjectRH.DumpInspector {
 
 
         private string ReadString(int start, int count, byte ignoreByte, bool decode = false) {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             for (int i = start; i < start+count; i++) {
                 if (Data[i] != ignoreByte) {
                     sb.Append((char)Data[i]);

@@ -93,7 +93,7 @@ namespace ProjectRH.DumpInspector {
         }
 
         private void ShowScannerSettings() {
-            ScannerSettingsWindow w = new ScannerSettingsWindow(this, FirmwareFile.FirmwareDefinition);
+            var w = new ScannerSettingsWindow(this, FirmwareFile.FirmwareDefinition);
             if (w.ShowDialog() == true) {
                 DataGrid.ItemsSource = FirmwareFile.GetPasswords(w.FirmwareDefinition);
                 DataGrid.Items.Refresh();
@@ -101,10 +101,10 @@ namespace ProjectRH.DumpInspector {
         }
 
         private void EditPassword(AdministratorLogin pw) {
-            PasswordEditWindow editor = new PasswordEditWindow(pw, this);
-            if (editor.ShowDialog()??false) {
-                pw.Username = editor.Username.Text;
-                pw.Password = editor.Password.Text;
+            var w = new PasswordEditWindow(pw, this);
+            if (w.ShowDialog() == true) {
+                pw.Username = w.Username.Text;
+                pw.Password = w.Password.Text;
                 DataGrid.Items.Refresh();
             }
         }

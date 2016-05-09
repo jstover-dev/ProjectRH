@@ -12,13 +12,15 @@ namespace ProjectRH.DumpInspector {
 
         public bool EncryptedUsername { get; private set; }
 
-        public static readonly UadVersion Default = new UadVersion() {
+        public static readonly UadVersion Default = new UadVersion {
             VersionNumber = 0,
             EncryptedPassword = true,
             EncryptedUsername = false
         };
 
-        public static readonly IList<UadVersion> KnownVersions = new List<UadVersion>() {
+        public static readonly UadVersion Auto = Default;
+
+        public static readonly IList<UadVersion> KnownVersions = new List<UadVersion> {
             Default,
             new UadVersion {
                 VersionNumber = 6,

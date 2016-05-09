@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 
 namespace ProjectRH.DumpInspector {
@@ -7,9 +6,9 @@ namespace ProjectRH.DumpInspector {
     public class FirmwareFile {
 
         public string Filename          { get; private set; }
-        public String FirmwareString    { get; private set; }
+        public string FirmwareString    { get; private set; }
 
-        public Int64 Length { get { return Data.Length; } }
+        public long Length { get { return Data.Length; } }
 
         private IFirmwareDefinition _firmwareDefinition;
         public IFirmwareDefinition FirmwareDefinition {
@@ -21,7 +20,7 @@ namespace ProjectRH.DumpInspector {
         private byte[] Data { get; set; }
 
         public FirmwareFile(string filename = null) {
-            if (!String.IsNullOrEmpty(filename)) {
+            if (!string.IsNullOrEmpty(filename)) {
                 Open(filename);
             }
         }
@@ -31,13 +30,13 @@ namespace ProjectRH.DumpInspector {
             Data = File.ReadAllBytes(filename);
             Scanner = new FirmwareScanner(Data);
             FirmwareString = Scanner.GetFirmwareString();
-            FirmwareDefinition = new DefaultFirmwareDefinition() {
+            FirmwareDefinition = new DefaultFirmwareDefinition {
                 UadVersion = Scanner.GetUadVersion()
             };
         }
 
         public List<AdministratorLogin> GetPasswords(IFirmwareDefinition fw = null) {
-            if (String.IsNullOrEmpty(Filename)) {
+            if (string.IsNullOrEmpty(Filename)) {
                 return new List<AdministratorLogin>();
             } 
             return Scanner.GetPasswords(
@@ -45,7 +44,7 @@ namespace ProjectRH.DumpInspector {
             );
         }
 
-        public void WriteFile(String filename) {
+        public void WriteFile(string filename) {
             File.WriteAllBytes(filename, Data);
         }
 
