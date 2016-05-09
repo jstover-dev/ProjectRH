@@ -25,15 +25,18 @@ namespace ProjectRH.DumpInspector {
             return sb.ToString();
         }
 
-        public UadVersion GetUadVersion() {
+        public int GetUadPosition() {
             for (int i = 0; i < Data.Length - 3; i++) {
                 if (Data[i] == (byte)'U' && Data[i + 1] == (byte)'A' && Data[i + 2] == (byte)'D') {
-                    return UadVersion.Get(int.Parse(((char)Data[i + 3]).ToString()));
+                    return i + 3;
                 }
             }
-            return UadVersion.Default;
+            return 0;
         }
 
+        public UadVersion GetUadVersion() {
+            return UadVersion.Get(int.Parse(((char)Data[GetUadPosition()]).ToString()));
+        }
 
         private string ReadString(int start, int count, byte ignoreByte, bool decode = false) {
             var sb = new StringBuilder();
@@ -47,55 +50,51 @@ namespace ProjectRH.DumpInspector {
 
 
         public List<AdministratorLogin> GetPasswords(IFirmwareDefinition fw) {
-            List<AdministratorLogin> results = new List<AdministratorLogin>();
+            var results = new List<AdministratorLogin>();
 
-            for (int i = 1; i < Data.Length; i++) {
-                if (Data[i] == fw.LoginMajorByte) {
-                    byte adminByte;
-                    if (fw.ReverseLoginByte) {
-                        adminByte = Data[i - 1];
-                    } else {
-                        adminByte = Data[i + 1];
-                        i++;
-                    }
-
-                    int currentAdmin;
-                    if ((currentAdmin = Array.IndexOf(fw.LoginMinorBytes, adminByte)) < 0) {
-                        continue;
-                    }
-
-                    i += fw.PrePadCount;
-                    i++;
-
-                    var currentUsername = ReadString(i, fw.UsernameLength, fw.UsernamePadByte, fw.EncryptedUsername);
-                    i += fw.UsernameLength;
-
-                    string currentPassword;
-                    if (currentAdmin == 0) {
-                        currentPassword = ReadString(i, fw.SupervisorPasswordLength, fw.PasswordPadByte, true);
-                        i += fw.SupervisorPasswordLength;
-                    } else {
-                        currentPassword = ReadString(i, fw.AdministratorPasswordLength, fw.PasswordPadByte, true);
-                        i += fw.AdministratorPasswordLength;
-                    }
-
-                    results.Add(new AdministratorLogin() {
-                        UserId = currentAdmin,
-                        Username = currentUsername,
-                        Password = currentPassword
-                    });
+            for (int i = GetUadPosition(); i < Data.Length; i++) {
+                
+                if (Data[i] != fw.LoginMajorByte) {
+                    continue;
                 }
-            }
+                
+                byte adminByte;
+                if (fw.ReverseLoginByte) {
+                    adminByte = Data[i - 1];
+                } else {
+                    adminByte = Data[i + 1];
+                    i++;
+                }
 
+                int currentAdmin;
+                if ((currentAdmin = Array.IndexOf(fw.LoginMinorBytes, adminByte)) < 0) {
+                    continue;
+                }
+
+                i += fw.PrePadCount;
+                i++;
+
+                var currentUsername = ReadString(i, fw.UsernameLength, fw.UsernamePadByte, fw.EncryptedUsername);
+                i += fw.UsernameLength;
+
+                string currentPassword;
+                if (currentAdmin == 0) {
+                    currentPassword = ReadString(i, fw.SupervisorPasswordLength, fw.PasswordPadByte, true);
+                    i += fw.SupervisorPasswordLength;
+                } else {
+                    currentPassword = ReadString(i, fw.AdministratorPasswordLength, fw.PasswordPadByte, true);
+                    i += fw.AdministratorPasswordLength;
+                }
+
+                results.Add(new AdministratorLogin() {
+                    UserId = currentAdmin,
+                    Username = currentUsername,
+                    Password = currentPassword
+                });
+            }
 
             return results;
         }
 
-
-
-
-
-
     }
-
 }
