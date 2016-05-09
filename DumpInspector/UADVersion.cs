@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace ProjectRH.DumpInspector {
@@ -31,6 +30,11 @@ namespace ProjectRH.DumpInspector {
                 VersionNumber = 7,
                 EncryptedPassword = true,
                 EncryptedUsername = false,
+            },
+            new UadVersion {
+                VersionNumber = 8,
+                EncryptedPassword = true,
+                EncryptedUsername = false
             },
             new UadVersion {
                 VersionNumber = 9,
