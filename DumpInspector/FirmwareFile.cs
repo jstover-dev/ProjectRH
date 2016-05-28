@@ -1,51 +1,65 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 
 namespace ProjectRH.DumpInspector {
 
     public class FirmwareFile {
 
-        public string Filename          { get; private set; }
+        // private fields
+        private FirmwareScanner scanner;
+        private byte[] content;
+
+
+        // set during constructor
         public string FirmwareString    { get; private set; }
 
-        public long Length { get { return Data.Length; } }
+        // derived from file content
+        public long Length { get { return content.Length; } }
 
+        // 
         private IFirmwareDefinition _firmwareDefinition;
         public IFirmwareDefinition FirmwareDefinition {
             get { return _firmwareDefinition ?? new DefaultFirmwareDefinition(); }
-            set { _firmwareDefinition = value; }
+            private set { _firmwareDefinition = value; }
         }
+
+        private IEnumerable<AdministratorLogin> _administratorLogins;
+        public IEnumerable<AdministratorLogin> AdministratorLogins { 
+            get { return _administratorLogins ?? Rescan(); }
+            set { _administratorLogins = value; }
+        }
+
+
         
-        private FirmwareScanner Scanner { get; set; }
-        private byte[] Data { get; set; }
 
-        public FirmwareFile(string filename = null) {
-            if (!string.IsNullOrEmpty(filename)) {
-                Open(filename);
-            }
+        /// <summary>
+        /// Abstraction of a firmware dump file.
+        /// </summary>
+        /// <param name="filename">Filename to open</param>
+        public FirmwareFile(string filename) {
+            Open(filename);
         }
 
-        public void Open(string filename) {
-            Filename = Path.GetFileName(filename);
-            Data = File.ReadAllBytes(filename);
-            Scanner = new FirmwareScanner(Data);
-            FirmwareString = Scanner.GetFirmwareString();
+        private void Open(string filename) {
+            content = File.ReadAllBytes(filename);
+            scanner = new FirmwareScanner(content);
+            FirmwareString = scanner.GetFirmwareString();
             FirmwareDefinition = new DefaultFirmwareDefinition {
-                UadVersion = Scanner.GetUadVersion()
+                UadVersion = scanner.GetUadVersion()
             };
+            Debug.WriteLine("Open: {0}", filename);
         }
 
-        public List<AdministratorLogin> GetPasswords(IFirmwareDefinition fw = null) {
-            if (string.IsNullOrEmpty(Filename)) {
-                return new List<AdministratorLogin>();
-            } 
-            return Scanner.GetPasswords(
-                (fw ?? FirmwareDefinition).ApplyRules(FirmwareString)
-            );
+        public IEnumerable<AdministratorLogin> Rescan(IFirmwareDefinition fw=null) {
+            FirmwareDefinition = (fw ?? FirmwareDefinition);
+            var passes = scanner.GetPasswords(FirmwareDefinition.ApplyRules(FirmwareString));
+            return passes;
         }
 
         public void WriteFile(string filename) {
-            File.WriteAllBytes(filename, Data);
+            File.WriteAllBytes(filename, content);
         }
 
     }

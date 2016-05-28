@@ -20,7 +20,6 @@ namespace ProjectRH.DumpInspector {
                 Debug.WriteLine("Applying {0} Rule for {1}", rule.FirmwareRuleType, fwversion);
                 fw.ApplyRule(rule);
             }
-            Console.WriteLine(fw.LoginMajorByte);
             return fw;
         }
 
