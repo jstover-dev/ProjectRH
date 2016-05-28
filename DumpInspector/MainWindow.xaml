@@ -1,4 +1,4 @@
-﻿<Window x:Class="ProjectRH.DumpInspector.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:self="clr-namespace:ProjectRH.DumpInspector"
@@ -9,8 +9,9 @@
         <CommandBinding Command="self:Commands.Open"   Executed="OpenCommand_Executed" />
         <CommandBinding Command="self:Commands.Exit"   Executed="ExitCommand_Executed" />
         <CommandBinding Command="self:Commands.Export" Executed="ExportCommand_Executed" CanExecute="ExecutionDisabled" />
-        <CommandBinding Command="self:Commands.Clear"  Executed="ClearCommand_Executed" CanExecute="ExecuteIfFileOpen"  />
-        <CommandBinding Command="self:Commands.ScannerSettings" Executed="ScannerSettingsCommand_Executed" CanExecute="ExecuteIfFileOpen" />
+        <CommandBinding Command="self:Commands.Clear"  Executed="ClearCommand_Executed" CanExecute="ClearPasswordsCanExecute"  />
+        <CommandBinding Command="self:Commands.ScannerSettings" Executed="ScannerSettingsCommand_Executed" CanExecute="ScannerSettingsCanExecute" />
+        <CommandBinding Command="self:Commands.AllowEditing" Executed="AllowEditing_Executed" CanExecute="ExecuteIfFileOpen" />
     </Window.CommandBindings>
 
     <DockPanel LastChildFill="True">
@@ -23,7 +24,9 @@
                 <MenuItem Header="E_xit" Command="self:Commands.Exit"/>
             </MenuItem>
             <MenuItem Header="_Edit">
+                <MenuItem Header="_Allow Editing" Command="self:Commands.AllowEditing" IsCheckable="True" x:Name="AllowEditingCheckbox"/>
                 <MenuItem Header="_Clear Passwords" Command="self:Commands.Clear" />
+                <Separator />
                 <MenuItem Header="_Scanner Settings" Command="self:Commands.ScannerSettings" />
             </MenuItem>
         </Menu>
