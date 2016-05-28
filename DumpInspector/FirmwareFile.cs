@@ -49,7 +49,7 @@ namespace ProjectRH.DumpInspector {
             FirmwareDefinition = new DefaultFirmwareDefinition {
                 UadVersion = scanner.GetUadVersion()
             };
-            Debug.WriteLine("Open: {0}", filename);
+            Debug.WriteLine("Opening "+filename);
         }
 
         public IEnumerable<AdministratorLogin> Rescan(IFirmwareDefinition fw=null) {
