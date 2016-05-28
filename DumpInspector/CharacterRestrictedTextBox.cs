@@ -51,8 +51,6 @@ namespace ProjectRH.DumpInspector {
                 return String.Empty;
             }
             try {
-                //string hex = Text.Substring(0, Math.Min(Text.Length, 2));
-                //string text = Convert.ToChar(Convert.ToByte(hex, 16)).ToString();
                 return Convert.ToChar(Convert.ToByte(Text.Substring(0, Math.Min(Text.Length, 2)), 16)).ToString();
             } catch (FormatException) {
                 return "?";
