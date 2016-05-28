@@ -25,6 +25,8 @@ namespace ProjectRH.DumpInspector {
             if (Settings.Load() == SettingsResult.LoadError) {
                 StatusMessage.Content = Settings.LastException.Message;
             }
+            logins = new ObservableCollection<AdministratorLogin>();
+            DataGrid.ItemsSource = logins;
         }
 
         private void OnApplicationExit() {
@@ -68,12 +70,15 @@ namespace ProjectRH.DumpInspector {
         private void OpenFile() {
             OpenFileDialog ofd;
             if ((ofd = ShowFileOpenDialog()) != null) {
+                StatusMessage.Content = String.Format("Scanning {0} ...", System.IO.Path.GetFileName(ofd.FileName));
                 Settings.LastOpenPath = System.IO.Path.GetDirectoryName(ofd.FileName);
                 FirmwareFile = new FirmwareFile(ofd.FileName);
                 StatusMessage.Content = FirmwareFile.Length.AsHumanFileSize();
-                FirmwareMessage.Content = String.Format("{0}", FirmwareFile.FirmwareString);
-                DataGrid.ItemsSource = FirmwareFile.GetPasswords();
-                DataGrid.Items.Refresh();
+                FirmwareMessage.Content = FirmwareFile.FirmwareString;
+                logins.Clear();
+                foreach (var a in FirmwareFile.Rescan()) {
+                    logins.Add(a);
+                }
             }
         }
 
@@ -86,26 +91,18 @@ namespace ProjectRH.DumpInspector {
         }
 
         private void ClearPasswords() {
-            foreach (AdministratorLogin x in DataGrid.Items) {
-                x.Password = "";
+            foreach (var x in logins) {
+                x.Password = string.Empty;
             }
-            DataGrid.Items.Refresh();
         }
 
         private void ShowScannerSettings() {
             var w = new ScannerSettingsWindow(this, FirmwareFile.FirmwareDefinition);
             if (w.ShowDialog() == true) {
-                DataGrid.ItemsSource = FirmwareFile.GetPasswords(w.FirmwareDefinition);
-                DataGrid.Items.Refresh();
-            }
-        }
-
-        private void EditPassword(AdministratorLogin pw) {
-            var w = new PasswordEditWindow(pw, this);
-            if (w.ShowDialog() == true) {
-                pw.Username = w.Username.Text;
-                pw.Password = w.Password.Text;
-                DataGrid.Items.Refresh();
+                logins.Clear();
+                foreach( var a in FirmwareFile.Rescan(w.FirmwareDefinition)) {
+                    logins.Add(a);
+                }
             }
         }
 
