@@ -54,7 +54,7 @@ namespace ProjectRH.DumpInspector {
 
         public IEnumerable<AdministratorLogin> Rescan(IFirmwareDefinition fw=null) {
             FirmwareDefinition = (fw ?? FirmwareDefinition);
-            var passes = scanner.GetPasswords(FirmwareDefinition.ApplyRules(FirmwareString));
+            var passes = scanner.GetLogins(FirmwareDefinition.ApplyRules(FirmwareString));
             return passes;
         }
 

@@ -95,6 +95,8 @@
     </ApplicationDefinition>
     <Compile Include="AdministratorLogin.cs" />
     <Compile Include="CharacterRestrictedTextBox.cs" />
+    <Compile Include="FirmwareEncoding.cs" />
+    <Compile Include="FirmwareWriter.cs" />
     <Compile Include="HexByteConverter.cs" />
     <Compile Include="ScannerSettingsWindow.xaml.cs">
       <DependentUpon>ScannerSettingsWindow.xaml</DependentUpon>
@@ -102,7 +104,6 @@
     <Compile Include="FirmwareRule.cs" />
     <Compile Include="FirmwareDefinition.cs" />
     <Compile Include="FirmwareScanner.cs" />
-    <Compile Include="FirmwareTools.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="UadVersion.cs" />
     <Page Include="ScannerSettingsWindow.xaml">
