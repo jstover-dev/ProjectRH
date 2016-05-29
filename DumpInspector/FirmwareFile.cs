@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 
 namespace ProjectRH.DumpInspector {
 
@@ -11,23 +12,33 @@ namespace ProjectRH.DumpInspector {
         private FirmwareScanner scanner;
         private byte[] content;
 
-
         // set during constructor
         public string FirmwareString    { get; private set; }
 
         // derived from file content
         public long Length { get { return content.Length; } }
 
-        // 
+        // provides firmware version specifics
         private IFirmwareDefinition _firmwareDefinition;
         public IFirmwareDefinition FirmwareDefinition {
-            get { return _firmwareDefinition ?? new DefaultFirmwareDefinition(); }
+            get {
+                if (_firmwareDefinition == null) {
+                    _firmwareDefinition = new DefaultFirmwareDefinition();
+                }
+                return _firmwareDefinition;
+            }
             private set { _firmwareDefinition = value; }
         }
 
+        
         private IEnumerable<AdministratorLogin> _administratorLogins;
         public IEnumerable<AdministratorLogin> AdministratorLogins { 
-            get { return _administratorLogins ?? Rescan(); }
+            get {
+                if (_administratorLogins == null) {
+                    _administratorLogins = Rescan();
+                }
+                return _administratorLogins ;
+            }
             set { _administratorLogins = value; }
         }
 
