@@ -8,7 +8,7 @@
     <Window.CommandBindings>
         <CommandBinding Command="self:Commands.Open"   Executed="OpenCommand_Executed" />
         <CommandBinding Command="self:Commands.Exit"   Executed="ExitCommand_Executed" />
-        <CommandBinding Command="self:Commands.Export" Executed="ExportCommand_Executed" CanExecute="ExecutionDisabled" />
+        <CommandBinding Command="self:Commands.Export" Executed="ExportCommand_Executed" CanExecute="ExecuteIfFileOpen" />
         <CommandBinding Command="self:Commands.Clear"  Executed="ClearCommand_Executed" CanExecute="ClearPasswordsCanExecute"  />
         <CommandBinding Command="self:Commands.ScannerSettings" Executed="ScannerSettingsCommand_Executed" CanExecute="ScannerSettingsCanExecute" />
         <CommandBinding Command="self:Commands.AllowEditing" Executed="AllowEditing_Executed" CanExecute="ExecuteIfFileOpen" />
@@ -63,7 +63,7 @@
                   BorderThickness="0" FontFamily="Segoe UI" HeadersVisibility="Column" GridLinesVisibility="All">
 
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding UserId}" />
+                <DataGridTextColumn Header="ID" Binding="{Binding UserId}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Name" Binding="{Binding Username}" />
                 <DataGridTextColumn Header="Password" Binding="{Binding Password}" Width="*">
                     <DataGridTextColumn.CellStyle>

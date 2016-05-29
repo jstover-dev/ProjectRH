@@ -91,7 +91,8 @@ namespace ProjectRH.DumpInspector {
             SaveFileDialog sfd;
             if ((sfd = ShowFileExportDialog()) != null && FirmwareFile!=null) {
                 Settings.LastExportPath = System.IO.Path.GetDirectoryName(sfd.FileName);
-                FirmwareFile.WriteFile(sfd.FileName);
+                FirmwareFile.AdministratorLogins = logins;
+                FirmwareFile.Write(sfd.FileName);
             }
         }
 

@@ -27,7 +27,7 @@
         public virtual bool EncryptedUsername           { get { return UadVersion.EncryptedUsername; } }
         public virtual byte PasswordPadByte             { get { return EncryptedPassword ? (byte)0x72 : (byte)0; } }
         public virtual byte UsernamePadByte             { get { return EncryptedUsername ? (byte)0x72 : (byte)0; } }
-        public virtual int PostPadCount                 { get { return 8 - PrePadCount; } }
+        public virtual int PostPadCount                 { get { return 6 - PrePadCount; } }
         public virtual int PrePadCount                  { get { return ReverseLoginByte ? 6 : 4;} }
 
         public virtual UadVersion UadVersion            { get; set; }

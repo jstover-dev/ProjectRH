@@ -45,11 +45,11 @@ namespace ProjectRH.DumpInspector {
                     sb.Append((char)Data[i]);
                 }
             }
-            return decode? FirmwareTools.HexConv(sb.ToString()) : sb.ToString() ;
+            return decode ? FirmwareEncoding.Decode(sb.ToString()) : sb.ToString();
         }
 
 
-        public List<AdministratorLogin> GetPasswords(IFirmwareDefinition fw) {
+        public List<AdministratorLogin> GetLogins(IFirmwareDefinition fw) {
             var results = new List<AdministratorLogin>();
 
             for (int i = GetUadPosition(); i < Data.Length; i++) {
