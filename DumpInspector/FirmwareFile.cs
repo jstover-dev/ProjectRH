@@ -58,8 +58,30 @@ namespace ProjectRH.DumpInspector {
             return passes;
         }
 
-        public void WriteFile(string filename) {
-            File.WriteAllBytes(filename, content);
+        public void Write(string filename) {
+            var data = new List<byte>();
+
+            var fwd = FirmwareDefinition;
+            int cursor = scanner.GetUadPosition() + 1;
+
+            data.AddRange(content.Take(cursor));
+            foreach(var admin in AdministratorLogins) {
+
+                data.AddRange(content.Skip(cursor).Take(8));
+                cursor += 8;
+
+                data.AddRange(fwd.EncryptedUsername ? FirmwareEncoding.Encode(admin.Username) : admin.Username.Cast<byte>().ToArray());
+                data.AddRange(Enumerable.Repeat(fwd.UsernamePadByte, fwd.UsernameLength - admin.Username.Length));
+                cursor += fwd.UsernameLength;
+
+                int pwLength = admin.UserId == 0 ? fwd.SupervisorPasswordLength : fwd.AdministratorPasswordLength;
+                data.AddRange(fwd.EncryptedPassword ? FirmwareEncoding.Encode(admin.Password) : admin.Password.Cast<byte>().ToArray());
+                data.AddRange(Enumerable.Repeat(fwd.PasswordPadByte, pwLength - admin.Password.Length));
+                cursor += pwLength;
+            }
+            data.AddRange(content.Skip(cursor));
+
+            File.WriteAllBytes(filename, data.ToArray());
         }
 
     }
