@@ -7,3 +7,4 @@
 * ProjectRH.DumpInspector_1.03.exe `1f1a927fce7a0e3d6f03a936ff6feb13`
 * ProjectRH.DumpInspector_1.04.exe `b7b1bea562426cb3eee2dfd7bc4f110f`
 * ProjectRH.DumpInspector_1.05.exe `05d77b1f65a0e318a71a14a4ac4ed041`
+* ProjectRH.DumpInspector_1.06.exe `802428923fdbfdacffa11b3976c181a4`
