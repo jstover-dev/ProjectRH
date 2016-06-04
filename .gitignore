@@ -23,3 +23,5 @@ obj/
 _ReSharper*/
 
 packages/
+TestData/
+Backup/
