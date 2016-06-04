@@ -13,7 +13,7 @@ namespace ProjectRH.DumpInspector {
         private byte[] content;
 
         // set during constructor
-        public string FirmwareString    { get; private set; }
+        public string FirmwareString { get; private set; }
 
         // derived from file content
         public long Length { get { return content.Length; } }

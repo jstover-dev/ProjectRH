@@ -37,7 +37,7 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -73,6 +73,9 @@
   <PropertyGroup>
     <SignManifests>false</SignManifests>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>ProjectRH.DumpInspector.App</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -96,7 +99,6 @@
     <Compile Include="AdministratorLogin.cs" />
     <Compile Include="CharacterRestrictedTextBox.cs" />
     <Compile Include="FirmwareEncoding.cs" />
-    <Compile Include="FirmwareWriter.cs" />
     <Compile Include="HexByteConverter.cs" />
     <Compile Include="ScannerSettingsWindow.xaml.cs">
       <DependentUpon>ScannerSettingsWindow.xaml</DependentUpon>

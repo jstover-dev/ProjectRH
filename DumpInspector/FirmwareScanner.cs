@@ -6,17 +6,26 @@ namespace ProjectRH.DumpInspector {
 
     public enum AdminIdLookupDirection { Behind=-1, Ahead=1 }
 
+    public class FirmwareScannerException : Exception { public FirmwareScannerException(string msg) : base(msg) { } }
+
     public class FirmwareScanner {
 
         private byte[] Data { get; set; }
 
         public FirmwareScanner(byte[] data) {
+            if (data.Length < 128) {
+                throw new FirmwareScannerException("Data size too small to be a valid NV-RAM dump.");
+            }
             Data = data;
         }
 
         public string GetFirmwareString() {
             var sb = new StringBuilder();
-            int cursor = Array.IndexOf(Data, (byte)'(') + 1;
+            int cursor = Array.IndexOf(Data, (byte)'(');
+            if (cursor < 0) {
+                throw new FirmwareScannerException("Could not find firmware version string");
+            }
+            cursor++;
             int maxLength = 32;
             while (cursor<Data.Length && Data[cursor] != (byte)')' && (--maxLength > 0)) {
                 sb.Append((char)Data[cursor]);
